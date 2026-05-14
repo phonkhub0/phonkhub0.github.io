@@ -25,7 +25,7 @@ body{
 }
 
 /* =========================
-   INTRO
+INTRO
 ========================= */
 
 #intro{
@@ -43,7 +43,6 @@ body{
   position:absolute;
   width:100%;
   height:100%;
-  overflow:hidden;
 }
 
 .particle{
@@ -52,30 +51,31 @@ body{
   height:4px;
   background:#ff9900;
   border-radius:50%;
-  opacity:.5;
   animation:float linear infinite;
 }
 
 @keyframes float{
   from{
-    transform:translateY(100vh) scale(0);
+    transform:translateY(100vh);
+    opacity:0;
   }
   to{
-    transform:translateY(-10vh) scale(1.5);
+    transform:translateY(-20vh);
+    opacity:1;
   }
 }
 
 .intro-glow{
   position:absolute;
-  width:500px;
-  height:500px;
-  background:radial-gradient(circle,#ff990033,transparent 70%);
+  width:600px;
+  height:600px;
+  background:radial-gradient(circle,#ff990044,transparent 70%);
   animation:pulse 4s infinite;
 }
 
 @keyframes pulse{
   0%{transform:scale(1);}
-  50%{transform:scale(1.2);}
+  50%{transform:scale(1.15);}
   100%{transform:scale(1);}
 }
 
@@ -83,18 +83,6 @@ body{
   position:relative;
   text-align:center;
   z-index:5;
-  animation:introAppear 1.5s ease;
-}
-
-@keyframes introAppear{
-  from{
-    opacity:0;
-    transform:translateY(30px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
 }
 
 .intro-logo{
@@ -102,7 +90,7 @@ body{
   font-weight:900;
   text-shadow:
     0 0 20px #ff9900,
-    0 0 50px #ff9900;
+    0 0 60px #ff9900;
 }
 
 .intro-logo span{
@@ -113,56 +101,43 @@ body{
 }
 
 .intro-sub{
-  color:#999;
-  letter-spacing:8px;
   margin-top:20px;
-  margin-bottom:30px;
-  animation:flicker 2s infinite;
-}
-
-@keyframes flicker{
-  0%,100%{opacity:1;}
-  50%{opacity:.5;}
+  color:#888;
+  letter-spacing:7px;
 }
 
 .enter-btn{
+  margin-top:30px;
   border:none;
-  padding:18px 50px;
-  border-radius:16px;
   background:#ff9900;
   color:black;
   font-weight:900;
-  font-size:1.1rem;
+  padding:18px 50px;
+  border-radius:16px;
   cursor:pointer;
-  transition:.3s;
-  box-shadow:0 0 30px #ff990088;
-}
-
-.enter-btn:hover{
-  transform:scale(1.08);
-  box-shadow:0 0 60px #ff9900;
+  font-size:1rem;
 }
 
 /* =========================
-   HEADER
+HEADER
 ========================= */
 
 header{
   position:sticky;
   top:0;
-  z-index:1000;
+  background:#000000cc;
   backdrop-filter:blur(10px);
-  background:#000000bb;
   border-bottom:1px solid #1d1d1d;
+  z-index:1000;
 }
 
 .nav{
   max-width:1300px;
   margin:auto;
+  padding:20px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:20px;
 }
 
 .logo{
@@ -177,74 +152,28 @@ header{
   border-radius:10px;
 }
 
-.top-btn{
-  background:#151515;
-  border:1px solid #2a2a2a;
-  color:white;
-  padding:12px 18px;
-  border-radius:12px;
-}
-
 /* =========================
-   HERO
+HERO
 ========================= */
 
 .hero{
-  text-align:center;
   padding:90px 20px 50px;
+  text-align:center;
 }
 
 .hero h1{
-  font-size:4.5rem;
+  font-size:4rem;
   margin-bottom:15px;
 }
 
 .hero p{
-  color:#999;
+  color:#888;
   max-width:700px;
   margin:auto;
-  line-height:1.6;
-}
-
-.hero-meter{
-  margin:40px auto;
-  width:min(700px,90%);
-}
-
-.meter-labels{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:10px;
-  color:#888;
-}
-
-.meter{
-  height:18px;
-  background:#111;
-  border-radius:999px;
-  overflow:hidden;
-  border:1px solid #222;
-}
-
-.meter-fill{
-  height:100%;
-  width:92%;
-  background:linear-gradient(
-    90deg,
-    #444,
-    #ff9900,
-    #ff0000
-  );
-  animation:meterMove 3s infinite alternate;
-}
-
-@keyframes meterMove{
-  from{width:70%;}
-  to{width:100%;}
 }
 
 /* =========================
-   UPLOAD
+UPLOAD
 ========================= */
 
 .upload-box{
@@ -252,14 +181,12 @@ header{
   margin:auto;
   background:#0f0f0f;
   border:1px solid #222;
-  border-radius:25px;
+  border-radius:24px;
   padding:30px;
-  box-shadow:0 0 60px #ff990011;
 }
 
 .upload-box h2{
   margin-bottom:20px;
-  font-size:2rem;
 }
 
 input,
@@ -268,38 +195,42 @@ select{
   width:100%;
   margin-top:15px;
   padding:16px;
-  border-radius:14px;
   border:none;
+  border-radius:14px;
   background:#181818;
   color:white;
-  font-size:1rem;
 }
 
 textarea{
   min-height:120px;
-  resize:none;
+}
+
+.upload-label{
+  display:block;
+  margin-top:20px;
+  color:#ff9900;
+  font-weight:700;
 }
 
 .upload-btn{
-  margin-top:20px;
   width:100%;
+  margin-top:20px;
   border:none;
-  padding:18px;
-  border-radius:14px;
   background:#ff9900;
   color:black;
   font-weight:900;
-  font-size:1rem;
+  padding:18px;
+  border-radius:14px;
   cursor:pointer;
-  transition:.25s;
 }
 
-.upload-btn:hover{
-  transform:scale(1.02);
+.status{
+  margin-top:15px;
+  color:#ff9900;
 }
 
 /* =========================
-   TRACKS
+TRACKS
 ========================= */
 
 .section-title{
@@ -319,11 +250,10 @@ textarea{
 
 .card{
   background:#0f0f0f;
+  border:1px solid #222;
   border-radius:24px;
   overflow:hidden;
-  border:1px solid #222;
   transition:.3s;
-  position:relative;
 }
 
 .card:hover{
@@ -333,27 +263,13 @@ textarea{
 
 .legendary{
   box-shadow:
-    0 0 30px #ff990066,
-    0 0 70px #ff000033;
-  animation:legendaryGlow 2s infinite alternate;
-}
-
-@keyframes legendaryGlow{
-  from{
-    box-shadow:
-      0 0 20px #ff990044,
-      0 0 40px #ff000022;
-  }
-  to{
-    box-shadow:
-      0 0 50px #ff9900aa,
-      0 0 90px #ff000088;
-  }
+    0 0 30px #ff990055,
+    0 0 80px #ff000044;
 }
 
 .card img{
   width:100%;
-  height:230px;
+  height:240px;
   object-fit:cover;
 }
 
@@ -361,84 +277,25 @@ textarea{
   padding:20px;
 }
 
-.card h2{
-  margin-bottom:10px;
-}
-
 .card p{
   color:#999;
-  margin-bottom:15px;
+  margin:12px 0;
 }
 
 audio{
   width:100%;
-  margin-bottom:15px;
+  margin:15px 0;
 }
 
 .rating{
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  margin-bottom:18px;
-}
-
-.rating span{
   color:#ff9900;
   font-weight:900;
 }
 
-.comments{
-  background:#151515;
-  border-radius:16px;
-  padding:15px;
-}
-
-.comment{
-  color:#aaa;
-  margin-top:10px;
-  font-size:.95rem;
-}
-
-.comment strong{
-  color:#ff9900;
-}
-
 /* =========================
-   VISUALIZER
-========================= */
-
-.visualizer{
-  display:flex;
-  align-items:flex-end;
-  gap:4px;
-  height:45px;
-  margin-bottom:15px;
-}
-
-.bar{
-  width:100%;
-  background:#ff9900;
-  border-radius:999px;
-  animation:bounce 1s infinite ease-in-out;
-}
-
-.bar:nth-child(1){height:20px;}
-.bar:nth-child(2){height:40px;animation-delay:.2s;}
-.bar:nth-child(3){height:25px;animation-delay:.4s;}
-.bar:nth-child(4){height:45px;animation-delay:.6s;}
-.bar:nth-child(5){height:18px;animation-delay:.8s;}
-
-@keyframes bounce{
-  0%,100%{
-    transform:scaleY(.5);
-  }
-  50%{
-    transform:scaleY(1.2);
-  }
-}
-
-/* =========================
-   FOOTER
+FOOTER
 ========================= */
 
 footer{
@@ -448,9 +305,7 @@ footer{
   border-top:1px solid #1d1d1d;
 }
 
-/* =========================
-   MOBILE
-========================= */
+/* MOBILE */
 
 @media(max-width:700px){
 
@@ -459,11 +314,7 @@ footer{
   }
 
   .hero h1{
-    font-size:2.8rem;
-  }
-
-  .section-title{
-    font-size:2rem;
+    font-size:2.5rem;
   }
 
 }
@@ -473,9 +324,7 @@ footer{
 
 <body>
 
-<!-- =========================
-     INTRO
-========================= -->
+<!-- INTRO -->
 
 <div id="intro">
 
@@ -501,9 +350,7 @@ footer{
 
 </div>
 
-<!-- =========================
-     HEADER
-========================= -->
+<!-- HEADER -->
 
 <header>
 
@@ -513,45 +360,23 @@ footer{
       Phonk<span>hub</span>
     </div>
 
-    <button class="top-btn">
-      TOP SIGMAS 🔥
-    </button>
-
   </div>
 
 </header>
 
-<!-- =========================
-     HERO
-========================= -->
+<!-- HERO -->
 
 <section class="hero">
 
   <h1>UPLOAD THE HARDEST PHONK</h1>
 
   <p>
-    Ranked from weak civilian trollface energy
-    to ULTRA AURA cosmic sigma drift phonk.
+    Upload tracks. Gain aura. Ascend beyond mortal sigma levels.
   </p>
-
-  <div class="hero-meter">
-
-    <div class="meter-labels">
-      <span>🙂 Base Trollface</span>
-      <span>💀 Ultra Aura</span>
-    </div>
-
-    <div class="meter">
-      <div class="meter-fill"></div>
-    </div>
-
-  </div>
 
 </section>
 
-<!-- =========================
-     UPLOAD
-========================= -->
+<!-- UPLOAD -->
 
 <section class="upload-box">
 
@@ -561,7 +386,17 @@ footer{
 
   <textarea id="desc" placeholder="Describe the aura..."></textarea>
 
+  <label class="upload-label">
+    Upload Audio
+  </label>
+
   <input type="file" id="audioFile" accept="audio/*">
+
+  <label class="upload-label">
+    Upload Cover Art
+  </label>
+
+  <input type="file" id="coverFile" accept="image/*">
 
   <select id="rating">
 
@@ -574,7 +409,7 @@ footer{
     <option value="7">7 - Brazilian Sigma</option>
     <option value="8">8 - Cosmic Drift</option>
     <option value="9">9 - Ascended Aura</option>
-    <option value="10">10 - ULTRA AURA TROLLFACE</option>
+    <option value="10">10 - ULTRA AURA</option>
 
   </select>
 
@@ -582,126 +417,123 @@ footer{
     UPLOAD PHONK
   </button>
 
+  <div class="status" id="status"></div>
+
 </section>
 
-<!-- =========================
-     TRACKS
-========================= -->
+<!-- TRACKS -->
 
 <h1 class="section-title">
   TOP AURA TRACKS
 </h1>
 
-<section class="tracks" id="tracks">
-
-  <!-- CARD -->
-
-  <div class="card legendary">
-
-    <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=1200&auto=format&fit=crop">
-
-    <div class="card-content">
-
-      <h2>VOID DRIFT</h2>
-
-      <p>
-        3am highway aura with maximum sigma compression.
-      </p>
-
-      <div class="visualizer">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-      </div>
-
-      <audio controls>
-        <source src="">
-      </audio>
-
-      <div class="rating">
-
-        <span>💀 ULTRA AURA</span>
-
-        <span>10/10</span>
-
-      </div>
-
-      <div class="comments">
-
-        <h4>Aura Replies</h4>
-
-        <div class="comment">
-          <strong>@sigmawolf:</strong>
-          this activated my ancestral drift instincts
-        </div>
-
-        <div class="comment">
-          <strong>@nightcrawler:</strong>
-          listened once and my aura doubled
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
+<section class="tracks" id="tracks"></section>
 
 <footer>
   Phonkhub © 2026 — ONLY REAL AURA SURVIVES
 </footer>
 
-<script>
+<!-- FIREBASE -->
+
+<script type="module">
 
 /* =========================
-   INTRO PARTICLES
+FIREBASE IMPORTS
 ========================= */
 
-const particlesContainer =
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  orderBy
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+/* =========================
+YOUR FIREBASE CONFIG
+PASTE YOURS HERE
+========================= */
+
+const firebaseConfig = {
+
+
+  apiKey: "AIzaSyA-D6pxL3_QTPCdqKU9w-uTrkAecRHmhLM",
+  
+  authDomain: "phonkhubsahur.firebaseapp.com",
+ 
+  projectId: "phonkhubsahur",
+ 
+  storageBucket: "phonkhubsahur.firebasestorage.app",
+ 
+  messagingSenderId: "1005113223908",
+  
+  appId: "1:1005113223908:web:6210d2011a2ad87c4e1af1",
+
+};
+
+/* =========================
+INIT
+========================= */
+
+const app =
+initializeApp(firebaseConfig);
+
+const db =
+getFirestore(app);
+
+const storage =
+getStorage(app);
+
+/* =========================
+INTRO PARTICLES
+========================= */
+
+const particles =
 document.getElementById("particles");
 
 for(let i=0;i<80;i++){
 
-  const particle =
+  const p =
   document.createElement("div");
 
-  particle.classList.add("particle");
+  p.classList.add("particle");
 
-  particle.style.left =
+  p.style.left =
   Math.random()*100 + "vw";
 
-  particle.style.animationDuration =
-  3 + Math.random()*6 + "s";
+  p.style.animationDuration =
+  3 + Math.random()*5 + "s";
 
-  particle.style.opacity =
-  Math.random();
-
-  particle.style.width =
-  particle.style.height =
-  Math.random()*5 + 2 + "px";
-
-  particlesContainer.appendChild(particle);
+  particles.appendChild(p);
 
 }
 
 /* =========================
-   ENTER SITE
+ENTER SITE
 ========================= */
 
-function enterSite(){
+window.enterSite = function(){
 
   const intro =
   document.getElementById("intro");
 
   intro.style.transition =
-  "all 1s ease";
+  "1s";
 
   intro.style.opacity = "0";
-
-  intro.style.pointerEvents = "none";
 
   setTimeout(()=>{
     intro.remove();
@@ -710,109 +542,89 @@ function enterSite(){
 }
 
 /* =========================
-   UPLOAD TRACK
+LOAD TRACKS
 ========================= */
 
-function uploadTrack(){
+async function loadTracks(){
 
-  const title =
-  document.getElementById("title").value;
+  const tracksContainer =
+  document.getElementById("tracks");
 
-  const desc =
-  document.getElementById("desc").value;
+  tracksContainer.innerHTML = "";
 
-  const file =
-  document.getElementById("audioFile").files[0];
+  const q =
+  query(
+    collection(db,"tracks"),
+    orderBy("created","desc")
+  );
 
-  const rating =
-  parseInt(document.getElementById("rating").value);
+  const snapshot =
+  await getDocs(q);
 
-  if(!title || !file){
+  snapshot.forEach(doc => {
 
-    alert("upload real sigma phonk");
+    createTrackCard(doc.data());
 
-    return;
-  }
+  });
 
-  const audioURL =
-  URL.createObjectURL(file);
+}
+
+/* =========================
+CREATE CARD
+========================= */
+
+function createTrackCard(track){
 
   let aura = "🙂";
-  let auraText = "BASE TROLLFACE";
-  let legendaryClass = "";
+  let auraText = "BASE";
 
-  if(rating >= 3){
+  if(track.rating >= 3){
     aura = "😎";
     auraText = "SIGMA";
   }
 
-  if(rating >= 5){
+  if(track.rating >= 5){
     aura = "🔥";
-    auraText = "DRIFT AURA";
+    auraText = "DRIFT";
   }
 
-  if(rating >= 7){
+  if(track.rating >= 7){
     aura = "😈";
-    auraText = "COSMIC SIGMA";
+    auraText = "COSMIC";
   }
 
-  if(rating >= 9){
+  if(track.rating >= 9){
     aura = "💀";
     auraText = "ULTRA AURA";
-    legendaryClass = "legendary";
   }
 
   const card =
   document.createElement("div");
 
   card.className =
-  `card ${legendaryClass}`;
+  track.rating >= 9
+  ? "card legendary"
+  : "card";
 
   card.innerHTML = `
 
-    <img src="
-    https://picsum.photos/600/400?random=${Math.random()}
-    ">
+    <img src="${track.coverUrl}">
 
     <div class="card-content">
 
-      <h2>${title}</h2>
+      <h2>${track.title}</h2>
 
-      <p>${desc}</p>
-
-      <div class="visualizer">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-      </div>
+      <p>${track.desc}</p>
 
       <audio controls>
-        <source src="${audioURL}">
+        <source src="${track.audioUrl}">
       </audio>
 
       <div class="rating">
 
         <span>${aura} ${auraText}</span>
 
-        <span>${rating}/10</span>
-
-      </div>
-
-      <div class="comments">
-
-        <h4>Aura Replies</h4>
-
-        <div class="comment">
-          <strong>@driftking:</strong>
-          this shattered my speakers
-        </div>
-
-        <div class="comment">
-          <strong>@trollsigma:</strong>
-          unmatched aura levels detected
-        </div>
+        <span>${track.rating}/10</span>
 
       </div>
 
@@ -821,13 +633,121 @@ function uploadTrack(){
   `;
 
   document.getElementById("tracks")
-  .prepend(card);
-
-  document.getElementById("title").value="";
-  document.getElementById("desc").value="";
-  document.getElementById("audioFile").value="";
+  .appendChild(card);
 
 }
+
+/* =========================
+UPLOAD TRACK
+========================= */
+
+window.uploadTrack = async function(){
+
+  const status =
+  document.getElementById("status");
+
+  const title =
+  document.getElementById("title").value;
+
+  const desc =
+  document.getElementById("desc").value;
+
+  const rating =
+  parseInt(
+    document.getElementById("rating").value
+  );
+
+  const audioFile =
+  document.getElementById("audioFile").files[0];
+
+  const coverFile =
+  document.getElementById("coverFile").files[0];
+
+  if(!title || !audioFile || !coverFile){
+
+    alert("upload everything bro");
+
+    return;
+  }
+
+  try{
+
+    status.innerText =
+    "Uploading aura...";
+
+    /* AUDIO */
+
+    const audioRef =
+    ref(
+      storage,
+      `tracks/${Date.now()}-${audioFile.name}`
+    );
+
+    await uploadBytes(audioRef,audioFile);
+
+    const audioUrl =
+    await getDownloadURL(audioRef);
+
+    /* COVER */
+
+    const coverRef =
+    ref(
+      storage,
+      `covers/${Date.now()}-${coverFile.name}`
+    );
+
+    await uploadBytes(coverRef,coverFile);
+
+    const coverUrl =
+    await getDownloadURL(coverRef);
+
+    /* SAVE FIRESTORE */
+
+    await addDoc(
+      collection(db,"tracks"),
+      {
+
+        title:title,
+
+        desc:desc,
+
+        rating:rating,
+
+        audioUrl:audioUrl,
+
+        coverUrl:coverUrl,
+
+        created:Date.now()
+
+      }
+    );
+
+    status.innerText =
+    "AURA UPLOADED 🔥";
+
+    document.getElementById("title").value="";
+    document.getElementById("desc").value="";
+    document.getElementById("audioFile").value="";
+    document.getElementById("coverFile").value="";
+
+    loadTracks();
+
+  }catch(err){
+
+    console.error(err);
+
+    status.innerText =
+    "upload failed 💀";
+
+  }
+
+}
+
+/* =========================
+LOAD ON START
+========================= */
+
+loadTracks();
 
 </script>
 
