@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Phonkhub</title>
 
@@ -10,6 +11,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
+
+/* =========================
+RESET
+========================= */
 
 *{
   margin:0;
@@ -25,6 +30,23 @@ body{
 }
 
 /* =========================
+SCROLLBAR
+========================= */
+
+::-webkit-scrollbar{
+  width:10px;
+}
+
+::-webkit-scrollbar-track{
+  background:#0f0f0f;
+}
+
+::-webkit-scrollbar-thumb{
+  background:#ff9900;
+  border-radius:999px;
+}
+
+/* =========================
 INTRO
 ========================= */
 
@@ -32,10 +54,10 @@ INTRO
   position:fixed;
   inset:0;
   background:black;
+  z-index:999999;
   display:flex;
   justify-content:center;
   align-items:center;
-  z-index:999999;
   overflow:hidden;
 }
 
@@ -49,40 +71,67 @@ INTRO
   position:absolute;
   width:4px;
   height:4px;
-  background:#ff9900;
   border-radius:50%;
+  background:#ff9900;
+  opacity:.5;
   animation:float linear infinite;
 }
 
 @keyframes float{
+
   from{
-    transform:translateY(100vh);
-    opacity:0;
+    transform:translateY(100vh) scale(0);
   }
+
   to{
-    transform:translateY(-20vh);
-    opacity:1;
+    transform:translateY(-10vh) scale(1.5);
   }
+
 }
 
 .intro-glow{
   position:absolute;
-  width:600px;
-  height:600px;
-  background:radial-gradient(circle,#ff990044,transparent 70%);
+  width:700px;
+  height:700px;
+  background:radial-gradient(circle,#ff990033,transparent 70%);
   animation:pulse 4s infinite;
 }
 
 @keyframes pulse{
-  0%{transform:scale(1);}
-  50%{transform:scale(1.15);}
-  100%{transform:scale(1);}
+
+  0%{
+    transform:scale(1);
+  }
+
+  50%{
+    transform:scale(1.2);
+  }
+
+  100%{
+    transform:scale(1);
+  }
+
 }
 
 .intro-content{
   position:relative;
   text-align:center;
-  z-index:5;
+  z-index:10;
+  animation:introFade 1.5s ease;
+}
+
+@keyframes introFade{
+
+  from{
+    opacity:0;
+    transform:translateY(30px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+
 }
 
 .intro-logo{
@@ -90,32 +139,52 @@ INTRO
   font-weight:900;
   text-shadow:
     0 0 20px #ff9900,
-    0 0 60px #ff9900;
+    0 0 70px #ff9900;
 }
 
 .intro-logo span{
   background:#ff9900;
   color:black;
-  padding:5px 14px;
+  padding:6px 15px;
   border-radius:12px;
 }
 
 .intro-sub{
   margin-top:20px;
-  color:#888;
-  letter-spacing:7px;
+  color:#999;
+  letter-spacing:8px;
+  animation:flicker 2s infinite;
+}
+
+@keyframes flicker{
+
+  0%,100%{
+    opacity:1;
+  }
+
+  50%{
+    opacity:.5;
+  }
+
 }
 
 .enter-btn{
-  margin-top:30px;
+  margin-top:35px;
   border:none;
   background:#ff9900;
   color:black;
-  font-weight:900;
   padding:18px 50px;
   border-radius:16px;
+  font-weight:900;
   cursor:pointer;
   font-size:1rem;
+  transition:.3s;
+  box-shadow:0 0 40px #ff990066;
+}
+
+.enter-btn:hover{
+  transform:scale(1.08);
+  box-shadow:0 0 80px #ff9900;
 }
 
 /* =========================
@@ -125,19 +194,19 @@ HEADER
 header{
   position:sticky;
   top:0;
-  background:#000000cc;
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid #1d1d1d;
   z-index:1000;
+  backdrop-filter:blur(10px);
+  background:#000000cc;
+  border-bottom:1px solid #1d1d1d;
 }
 
 .nav{
-  max-width:1300px;
+  max-width:1400px;
   margin:auto;
-  padding:20px;
   display:flex;
   justify-content:space-between;
   align-items:center;
+  padding:20px;
 }
 
 .logo{
@@ -152,81 +221,77 @@ header{
   border-radius:10px;
 }
 
+.top-btn{
+  background:#111;
+  border:1px solid #222;
+  color:white;
+  padding:12px 18px;
+  border-radius:12px;
+}
+
 /* =========================
 HERO
 ========================= */
 
 .hero{
-  padding:90px 20px 50px;
   text-align:center;
+  padding:100px 20px 60px;
 }
 
 .hero h1{
-  font-size:4rem;
-  margin-bottom:15px;
-}
-
-.hero p{
-  color:#888;
-  max-width:700px;
-  margin:auto;
-}
-
-/* =========================
-UPLOAD
-========================= */
-
-.upload-box{
-  width:min(850px,92%);
-  margin:auto;
-  background:#0f0f0f;
-  border:1px solid #222;
-  border-radius:24px;
-  padding:30px;
-}
-
-.upload-box h2{
+  font-size:5rem;
   margin-bottom:20px;
 }
 
-input,
-textarea,
-select{
-  width:100%;
-  margin-top:15px;
-  padding:16px;
-  border:none;
-  border-radius:14px;
-  background:#181818;
-  color:white;
+.hero p{
+  max-width:700px;
+  margin:auto;
+  color:#999;
+  line-height:1.7;
 }
 
-textarea{
-  min-height:120px;
+.hero-meter{
+  margin:50px auto;
+  width:min(700px,90%);
 }
 
-.upload-label{
-  display:block;
-  margin-top:20px;
-  color:#ff9900;
-  font-weight:700;
+.meter-labels{
+  display:flex;
+  justify-content:space-between;
+  color:#888;
+  margin-bottom:10px;
 }
 
-.upload-btn{
-  width:100%;
-  margin-top:20px;
-  border:none;
-  background:#ff9900;
-  color:black;
-  font-weight:900;
-  padding:18px;
-  border-radius:14px;
-  cursor:pointer;
+.meter{
+  background:#111;
+  border:1px solid #222;
+  border-radius:999px;
+  overflow:hidden;
+  height:20px;
 }
 
-.status{
-  margin-top:15px;
-  color:#ff9900;
+.meter-fill{
+  height:100%;
+  width:92%;
+  background:linear-gradient(
+    90deg,
+    #444,
+    #ff9900,
+    #ff0000
+  );
+  animation:meterMove 3s infinite alternate;
+}
+
+@keyframes meterMove{
+
+  from{
+    width:70%;
+  }
+
+  to{
+    width:100%;
+  }
+
 }
 
 /* =========================
@@ -236,62 +301,140 @@ TRACKS
 .section-title{
   text-align:center;
   font-size:3rem;
-  margin:70px 0 30px;
+  margin-bottom:40px;
 }
 
 .tracks{
-  width:min(1400px,95%);
+  width:min(1450px,95%);
   margin:auto;
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
-  gap:25px;
+  grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+  gap:30px;
   padding-bottom:100px;
 }
 
 .card{
   background:#0f0f0f;
   border:1px solid #222;
-  border-radius:24px;
+  border-radius:25px;
   overflow:hidden;
   transition:.3s;
+  position:relative;
 }
 
 .card:hover{
-  transform:translateY(-8px);
+  transform:translateY(-10px);
   border-color:#ff9900;
 }
 
 .legendary{
-  box-shadow:
-    0 0 30px #ff990055,
-    0 0 80px #ff000044;
+  animation:legendaryGlow 2s infinite alternate;
+}
+
+@keyframes legendaryGlow{
+
+  from{
+    box-shadow:
+      0 0 20px #ff990044,
+      0 0 40px #ff000022;
+  }
+
+  to{
+    box-shadow:
+      0 0 50px #ff9900aa,
+      0 0 100px #ff000066;
+  }
+
 }
 
 .card img{
   width:100%;
-  height:240px;
+  height:260px;
   object-fit:cover;
 }
 
 .card-content{
-  padding:20px;
+  padding:22px;
+}
+
+.card h2{
+  margin-bottom:10px;
 }
 
 .card p{
   color:#999;
-  margin:12px 0;
+  margin-bottom:20px;
+}
+
+.visualizer{
+  display:flex;
+  align-items:flex-end;
+  gap:4px;
+  height:45px;
+  margin-bottom:15px;
+}
+
+.bar{
+  width:100%;
+  background:#ff9900;
+  border-radius:999px;
+  animation:bounce 1s infinite ease-in-out;
+}
+
+.bar:nth-child(1){
+  height:20px;
+}
+
+.bar:nth-child(2){
+  height:35px;
+  animation-delay:.2s;
+}
+
+.bar:nth-child(3){
+  height:25px;
+  animation-delay:.4s;
+}
+
+.bar:nth-child(4){
+  height:45px;
+  animation-delay:.6s;
+}
+
+.bar:nth-child(5){
+  height:18px;
+  animation-delay:.8s;
+}
+
+@keyframes bounce{
+
+  0%,100%{
+    transform:scaleY(.5);
+  }
+
+  50%{
+    transform:scaleY(1.2);
+  }
+
 }
 
 audio{
   width:100%;
-  margin:15px 0;
+  margin-bottom:18px;
 }
 
 .rating{
   display:flex;
   justify-content:space-between;
+  align-items:center;
   color:#ff9900;
   font-weight:900;
+}
+
+.aura-badge{
+  padding:8px 12px;
+  border-radius:999px;
+  background:#1b1b1b;
+  border:1px solid #2a2a2a;
 }
 
 /* =========================
@@ -300,12 +443,14 @@ FOOTER
 
 footer{
   text-align:center;
-  color:#666;
   padding:40px 20px;
+  color:#666;
   border-top:1px solid #1d1d1d;
 }
 
-/* MOBILE */
+/* =========================
+MOBILE
+========================= */
 
 @media(max-width:700px){
 
@@ -314,7 +459,11 @@ footer{
   }
 
   .hero h1{
-    font-size:2.5rem;
+    font-size:2.8rem;
+  }
+
+  .section-title{
+    font-size:2rem;
   }
 
 }
@@ -324,7 +473,9 @@ footer{
 
 <body>
 
-<!-- INTRO -->
+<!-- =========================
+INTRO
+========================= -->
 
 <div id="intro">
 
@@ -350,7 +501,9 @@ footer{
 
 </div>
 
-<!-- HEADER -->
+<!-- =========================
+HEADER
+========================= -->
 
 <header>
 
@@ -360,68 +513,45 @@ footer{
       Phonk<span>hub</span>
     </div>
 
+    <button class="top-btn">
+      TOP SIGMAS 🔥
+    </button>
+
   </div>
 
 </header>
 
-<!-- HERO -->
+<!-- =========================
+HERO
+========================= -->
 
 <section class="hero">
 
   <h1>UPLOAD THE HARDEST PHONK</h1>
 
   <p>
-    Upload tracks. Gain aura. Ascend beyond mortal sigma levels.
+    Ranked from weak civilian trollface energy
+    to ULTRA AURA cosmic sigma drift phonk.
   </p>
 
-</section>
+  <div class="hero-meter">
 
-<!-- UPLOAD -->
+    <div class="meter-labels">
+      <span>🙂 Base Trollface</span>
+      <span>💀 Ultra Aura</span>
+    </div>
 
-<section class="upload-box">
+    <div class="meter">
+      <div class="meter-fill"></div>
+    </div>
 
-  <h2>Upload Aura</h2>
-
-  <input type="text" id="title" placeholder="Track name">
-
-  <textarea id="desc" placeholder="Describe the aura..."></textarea>
-
-  <label class="upload-label">
-    Upload Audio
-  </label>
-
-  <input type="file" id="audioFile" accept="audio/*">
-
-  <label class="upload-label">
-    Upload Cover Art
-  </label>
-
-  <input type="file" id="coverFile" accept="image/*">
-
-  <select id="rating">
-
-    <option value="1">1 - Base Trollface</option>
-    <option value="2">2 - Beginner Sigma</option>
-    <option value="3">3 - Drift Kid</option>
-    <option value="4">4 - Gym Aura</option>
-    <option value="5">5 - Edit Material</option>
-    <option value="6">6 - Balkan Rage</option>
-    <option value="7">7 - Brazilian Sigma</option>
-    <option value="8">8 - Cosmic Drift</option>
-    <option value="9">9 - Ascended Aura</option>
-    <option value="10">10 - ULTRA AURA</option>
-
-  </select>
-
-  <button class="upload-btn" onclick="uploadTrack()">
-    UPLOAD PHONK
-  </button>
-
-  <div class="status" id="status"></div>
+  </div>
 
 </section>
 
-<!-- TRACKS -->
+<!-- =========================
+TRACKS
+========================= -->
 
 <h1 class="section-title">
   TOP AURA TRACKS
@@ -433,91 +563,36 @@ footer{
   Phonkhub © 2026 — ONLY REAL AURA SURVIVES
 </footer>
 
-<!-- FIREBASE -->
-
-<script type="module">
-
-/* =========================
-FIREBASE IMPORTS
-========================= */
-
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  query,
-  orderBy
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-import {
-  getStorage,
-  ref,
-  uploadBytes,
-  getDownloadURL
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
-
-/* =========================
-YOUR FIREBASE CONFIG
-PASTE YOURS HERE
-========================= */
-
-const firebaseConfig = {
-
-
-  apiKey: "AIzaSyA-D6pxL3_QTPCdqKU9w-uTrkAecRHmhLM",
-  
-  authDomain: "phonkhubsahur.firebaseapp.com",
- 
-  projectId: "phonkhubsahur",
- 
-  storageBucket: "phonkhubsahur.firebasestorage.app",
- 
-  messagingSenderId: "1005113223908",
-  
-  appId: "1:1005113223908:web:6210d2011a2ad87c4e1af1",
-
-};
-
-/* =========================
-INIT
-========================= */
-
-const app =
-initializeApp(firebaseConfig);
-
-const db =
-getFirestore(app);
-
-const storage =
-getStorage(app);
+<script>
 
 /* =========================
 INTRO PARTICLES
 ========================= */
 
-const particles =
+const particlesContainer =
 document.getElementById("particles");
 
-for(let i=0;i<80;i++){
+for(let i=0;i<90;i++){
 
-  const p =
+  const particle =
   document.createElement("div");
 
-  p.classList.add("particle");
+  particle.classList.add("particle");
 
-  p.style.left =
+  particle.style.left =
   Math.random()*100 + "vw";
 
-  p.style.animationDuration =
-  3 + Math.random()*5 + "s";
+  particle.style.animationDuration =
+  3 + Math.random()*6 + "s";
 
-  particles.appendChild(p);
+  particle.style.opacity =
+  Math.random();
+
+  particle.style.width =
+  particle.style.height =
+  Math.random()*5 + 2 + "px";
+
+  particlesContainer.appendChild(particle);
 
 }
 
@@ -525,77 +600,105 @@ for(let i=0;i<80;i++){
 ENTER SITE
 ========================= */
 
-window.enterSite = function(){
+function enterSite(){
 
   const intro =
   document.getElementById("intro");
 
   intro.style.transition =
-  "1s";
+  "all 1s ease";
 
   intro.style.opacity = "0";
 
+  intro.style.pointerEvents = "none";
+
   setTimeout(()=>{
+
     intro.remove();
+
   },1000);
 
 }
 
 /* =========================
-LOAD TRACKS
+TRACK DATA
+PUT YOUR SONGS HERE
 ========================= */
 
-async function loadTracks(){
+const tracks = [
 
-  const tracksContainer =
-  document.getElementById("tracks");
+  {
+    title:"VOID DRIFT",
+    desc:"3am sigma highway aura.",
+    cover:"covers/void.jpg",
+    audio:"songs/void.mp3",
+    rating:10
+  },
 
-  tracksContainer.innerHTML = "";
+  {
+    title:"BALKAN RAGE",
+    desc:"forbidden gym phonk frequencies.",
+    cover:"covers/balkan.jpg",
+    audio:"songs/balkan.mp3",
+    rating:8
+  },
 
-  const q =
-  query(
-    collection(db,"tracks"),
-    orderBy("created","desc")
-  );
+  {
+    title:"MANGO PHASE",
+    desc:"maximum trollface compression.",
+    cover:"covers/mango.jpg",
+    audio:"songs/mango.mp3",
+    rating:7
+  },
 
-  const snapshot =
-  await getDocs(q);
+  {
+    title:"NIGHT DRIVE",
+    desc:"cosmic drift edit energy.",
+    cover:"covers/night.jpg",
+    audio:"songs/night.mp3",
+    rating:9
+  }
 
-  snapshot.forEach(doc => {
-
-    createTrackCard(doc.data());
-
-  });
-
-}
+];
 
 /* =========================
-CREATE CARD
+RENDER TRACKS
 ========================= */
 
-function createTrackCard(track){
+const tracksContainer =
+document.getElementById("tracks");
+
+tracks.forEach(track=>{
 
   let aura = "🙂";
   let auraText = "BASE";
 
   if(track.rating >= 3){
+
     aura = "😎";
     auraText = "SIGMA";
+
   }
 
   if(track.rating >= 5){
+
     aura = "🔥";
     auraText = "DRIFT";
+
   }
 
   if(track.rating >= 7){
+
     aura = "😈";
     auraText = "COSMIC";
+
   }
 
   if(track.rating >= 9){
+
     aura = "💀";
     auraText = "ULTRA AURA";
+
   }
 
   const card =
@@ -608,7 +711,7 @@ function createTrackCard(track){
 
   card.innerHTML = `
 
-    <img src="${track.coverUrl}">
+    <img src="${track.cover}">
 
     <div class="card-content">
 
@@ -616,13 +719,27 @@ function createTrackCard(track){
 
       <p>${track.desc}</p>
 
+      <div class="visualizer">
+
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+
+      </div>
+
       <audio controls>
-        <source src="${track.audioUrl}">
+
+        <source src="${track.audio}">
+
       </audio>
 
       <div class="rating">
 
-        <span>${aura} ${auraText}</span>
+        <div class="aura-badge">
+          ${aura} ${auraText}
+        </div>
 
         <span>${track.rating}/10</span>
 
@@ -632,122 +749,9 @@ function createTrackCard(track){
 
   `;
 
-  document.getElementById("tracks")
-  .appendChild(card);
+  tracksContainer.appendChild(card);
 
-}
-
-/* =========================
-UPLOAD TRACK
-========================= */
-
-window.uploadTrack = async function(){
-
-  const status =
-  document.getElementById("status");
-
-  const title =
-  document.getElementById("title").value;
-
-  const desc =
-  document.getElementById("desc").value;
-
-  const rating =
-  parseInt(
-    document.getElementById("rating").value
-  );
-
-  const audioFile =
-  document.getElementById("audioFile").files[0];
-
-  const coverFile =
-  document.getElementById("coverFile").files[0];
-
-  if(!title || !audioFile || !coverFile){
-
-    alert("upload everything bro");
-
-    return;
-  }
-
-  try{
-
-    status.innerText =
-    "Uploading aura...";
-
-    /* AUDIO */
-
-    const audioRef =
-    ref(
-      storage,
-      `tracks/${Date.now()}-${audioFile.name}`
-    );
-
-    await uploadBytes(audioRef,audioFile);
-
-    const audioUrl =
-    await getDownloadURL(audioRef);
-
-    /* COVER */
-
-    const coverRef =
-    ref(
-      storage,
-      `covers/${Date.now()}-${coverFile.name}`
-    );
-
-    await uploadBytes(coverRef,coverFile);
-
-    const coverUrl =
-    await getDownloadURL(coverRef);
-
-    /* SAVE FIRESTORE */
-
-    await addDoc(
-      collection(db,"tracks"),
-      {
-
-        title:title,
-
-        desc:desc,
-
-        rating:rating,
-
-        audioUrl:audioUrl,
-
-        coverUrl:coverUrl,
-
-        created:Date.now()
-
-      }
-    );
-
-    status.innerText =
-    "AURA UPLOADED 🔥";
-
-    document.getElementById("title").value="";
-    document.getElementById("desc").value="";
-    document.getElementById("audioFile").value="";
-    document.getElementById("coverFile").value="";
-
-    loadTracks();
-
-  }catch(err){
-
-    console.error(err);
-
-    status.innerText =
-    "upload failed 💀";
-
-  }
-
-}
-
-/* =========================
-LOAD ON START
-========================= */
-
-loadTracks();
+});
 
 </script>
 
