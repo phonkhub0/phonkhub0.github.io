@@ -1,525 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Phonkhub</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-
-<style>
-
-/* =========================
-RESET
-========================= */
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-body{
-  background:#050505;
-  color:white;
-  font-family:'Inter',sans-serif;
-  overflow-x:hidden;
-}
-
-/* =========================
-SCROLLBAR
-========================= */
-
-::-webkit-scrollbar{
-  width:10px;
-}
-
-::-webkit-scrollbar-track{
-  background:#111;
-}
-
-::-webkit-scrollbar-thumb{
-  background:#ff9900;
-  border-radius:999px;
-}
-
-/* =========================
-INTRO
-========================= */
-
-#intro{
-  position:fixed;
-  inset:0;
-  background:black;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  overflow:hidden;
-  z-index:999999;
-}
-
-.intro-content{
-  position:relative;
-  z-index:5;
-  text-align:center;
-}
-
-.intro-logo{
-  font-size:6rem;
-  font-weight:900;
-  text-shadow:
-    0 0 20px #ff9900,
-    0 0 60px #ff9900;
-}
-
-.intro-logo span{
-  background:#ff9900;
-  color:black;
-  padding:6px 15px;
-  border-radius:12px;
-}
-
-.intro-sub{
-  margin-top:20px;
-  color:#888;
-  letter-spacing:8px;
-}
-
-.enter-btn{
-  margin-top:35px;
-  border:none;
-  background:#ff9900;
-  color:black;
-  padding:18px 50px;
-  border-radius:16px;
-  font-weight:900;
-  cursor:pointer;
-  font-size:1rem;
-}
-
-.particle{
-  position:absolute;
-  width:4px;
-  height:4px;
-  background:#ff9900;
-  border-radius:50%;
-  animation:float linear infinite;
-}
-
-@keyframes float{
-
-  from{
-    transform:translateY(100vh);
-  }
-
-  to{
-    transform:translateY(-20vh);
-  }
-
-}
-
-/* =========================
-HEADER
-========================= */
-
-header{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  background:#000000cc;
-  backdrop-filter:blur(10px);
-  border-bottom:1px solid #222;
-}
-
-.nav{
-  max-width:1400px;
-  margin:auto;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:20px;
-}
-
-.logo{
-  font-size:2.5rem;
-  font-weight:900;
-}
-
-.logo span{
-  background:#ff9900;
-  color:black;
-  padding:4px 10px;
-  border-radius:10px;
-}
-
-/* =========================
-LAYOUT
-========================= */
-
-.main-layout{
-  display:grid;
-  grid-template-columns:1fr 320px;
-  gap:30px;
-  width:min(1500px,95%);
-  margin:auto;
-  padding:40px 0;
-}
-
-/* =========================
-TRACKS
-========================= */
-
-.section-title{
-  font-size:3rem;
-  margin-bottom:35px;
-}
-
-.tracks{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
-  gap:25px;
-}
-
-.card{
-  background:#0f0f0f;
-  border:1px solid #222;
-  border-radius:24px;
-  overflow:hidden;
-  transition:.3s;
-}
-
-.card:hover{
-  transform:translateY(-8px);
-  border-color:#ff9900;
-}
-
-.legendary{
-  box-shadow:
-    0 0 30px #ff990055,
-    0 0 70px #ff000044;
-}
-
-.card img{
-  width:100%;
-  height:260px;
-  object-fit:cover;
-}
-
-.card-content{
-  padding:22px;
-}
-
-.card h2{
-  margin-bottom:10px;
-}
-
-.card p{
-  color:#999;
-  margin-bottom:18px;
-}
-
-.controls{
-  display:flex;
-  gap:10px;
-  margin-top:15px;
-}
-
-.like-btn,
-.playlist-btn{
-  flex:1;
-  border:none;
-  background:#1b1b1b;
-  color:white;
-  padding:12px;
-  border-radius:12px;
-  cursor:pointer;
-  transition:.2s;
-}
-
-.like-btn:hover,
-.playlist-btn:hover{
-  background:#ff9900;
-  color:black;
-}
-
-/* =========================
-VISUALIZER
-========================= */
-
-.visualizer{
-  display:flex;
-  align-items:flex-end;
-  gap:4px;
-  height:45px;
-  margin-bottom:15px;
-}
-
-.bar{
-  width:100%;
-  background:#ff9900;
-  border-radius:999px;
-  transform:scaleY(.3);
-}
-
-.bar.active{
-  animation:bounce 1s infinite ease-in-out;
-}
-
-.bar:nth-child(1){
-  animation-delay:0s;
-}
-
-.bar:nth-child(2){
-  animation-delay:.2s;
-}
-
-.bar:nth-child(3){
-  animation-delay:.4s;
-}
-
-.bar:nth-child(4){
-  animation-delay:.6s;
-}
-
-.bar:nth-child(5){
-  animation-delay:.8s;
-}
-
-@keyframes bounce{
-
-  0%,100%{
-    transform:scaleY(.4);
-  }
-
-  50%{
-    transform:scaleY(1.2);
-  }
-
-}
-
-/* =========================
-AUDIO
-========================= */
-
-audio{
-  width:100%;
-}
-
-/* =========================
-RATING
-========================= */
-
-.rating{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-top:18px;
-  color:#ff9900;
-  font-weight:900;
-}
-
-/* =========================
-SIDEBAR
-========================= */
-
-.sidebar{
-  position:sticky;
-  top:100px;
-  height:fit-content;
-}
-
-.panel{
-  background:#0f0f0f;
-  border:1px solid #222;
-  border-radius:22px;
-  padding:20px;
-  margin-bottom:25px;
-}
-
-.panel h3{
-  margin-bottom:18px;
-}
-
-.saved-track{
-  background:#181818;
-  border-radius:14px;
-  padding:12px;
-  margin-top:10px;
-  cursor:pointer;
-  transition:.2s;
-}
-
-.saved-track:hover{
-  background:#222;
-}
-
-/* =========================
-MOBILE
-========================= */
-
-@media(max-width:1000px){
-
-  .main-layout{
-    grid-template-columns:1fr;
-  }
-
-  .sidebar{
-    position:relative;
-    top:0;
-  }
-
-}
-
-@media(max-width:700px){
-
-  .intro-logo{
-    font-size:3.5rem;
-  }
-
-  .section-title{
-    font-size:2rem;
-  }
-
-}
-
-</style>
-</head>
-
-<body>
-
-<!-- =========================
-INTRO
-========================= -->
-
-<div id="intro">
-
-  <div id="particles"></div>
-
-  <div class="intro-content">
-
-    <div class="intro-logo">
-      Phonk<span>hub</span>
-    </div>
-
-    <div class="intro-sub">
-      MAXIMUM AURA DETECTED
-    </div>
-
-    <button class="enter-btn" onclick="enterSite()">
-      ENTER THE PHONK
-    </button>
-
-  </div>
-
-</div>
-
-<!-- =========================
-HEADER
-========================= -->
-
-<header>
-
-  <div class="nav">
-
-    <div class="logo">
-      Phonk<span>hub</span>
-    </div>
-
-  </div>
-
-</header>
-
-<!-- =========================
-MAIN
-========================= -->
-
-<div class="main-layout">
-
-  <!-- TRACKS -->
-
-  <div>
-
-    <h1 class="section-title">
-      TOP AURA TRACKS
-    </h1>
-
-    <section class="tracks" id="tracks"></section>
-
-  </div>
-
-  <!-- SIDEBAR -->
-
-  <aside class="sidebar">
-
-    <div class="panel">
-
-      <h3>❤️ Liked Songs</h3>
-
-      <div id="likedSongs"></div>
-
-    </div>
-
-    <div class="panel">
-
-      <h3>📀 Playlist</h3>
-
-      <div id="playlistSongs"></div>
-
-    </div>
-
-  </aside>
-
-</div>
+<!--
+REPLACE YOUR ENTIRE <script> WITH THIS
+-->
 
 <script>
-
-/* =========================
-INTRO
-========================= */
-
-const particles =
-document.getElementById("particles");
-
-for(let i=0;i<80;i++){
-
-  const p =
-  document.createElement("div");
-
-  p.classList.add("particle");
-
-  p.style.left =
-  Math.random()*100 + "vw";
-
-  p.style.animationDuration =
-  3 + Math.random()*5 + "s";
-
-  p.style.opacity =
-  Math.random();
-
-  particles.appendChild(p);
-
-}
-
-function enterSite(){
-
-  const intro =
-  document.getElementById("intro");
-
-  intro.style.transition =
-  "1s";
-
-  intro.style.opacity = "0";
-
-  setTimeout(()=>{
-
-    intro.remove();
-
-  },1000);
-
-}
 
 /* =========================
 TRACK DATA
@@ -618,7 +101,7 @@ rating:1
 ];
 
 /* =========================
-LOCAL STORAGE
+STORAGE
 ========================= */
 
 let likedSongs =
@@ -626,16 +109,328 @@ JSON.parse(
 localStorage.getItem("likedSongs")
 ) || [];
 
-let playlistSongs =
+let playlists =
 JSON.parse(
-localStorage.getItem("playlistSongs")
-) || [];
-
-/* =========================
-CURRENT AUDIO
-========================= */
+localStorage.getItem("playlists")
+) || {};
 
 let currentAudio = null;
+
+let currentPlaylist = [];
+let currentPlaylistIndex = 0;
+
+/* =========================
+CREATE TOP UI
+========================= */
+
+document.body.insertAdjacentHTML(
+"afterbegin",
+
+`
+
+<div id="topLibrary">
+
+  <div class="library-section">
+
+    <h2>❤️ Liked</h2>
+
+    <div id="likedContainer"></div>
+
+  </div>
+
+  <div class="library-section">
+
+    <div class="playlist-top">
+
+      <h2>📀 Playlists</h2>
+
+      <button id="newPlaylistBtn">
+        +
+      </button>
+
+    </div>
+
+    <div id="playlistContainer"></div>
+
+  </div>
+
+</div>
+
+<div id="playlistOverlay">
+
+  <div id="playlistScreen">
+
+    <button id="closeOverlay">
+      ✕
+    </button>
+
+    <img id="playlistCover">
+
+    <h1 id="playlistSongTitle">
+      Track
+    </h1>
+
+    <audio id="playlistPlayer" controls></audio>
+
+    <div id="playlistControls">
+
+      <button id="backBtn">
+        ⏮
+      </button>
+
+      <button id="shuffleBtn">
+        🔀
+      </button>
+
+      <button id="forwardBtn">
+        ⏭
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+`
+
+);
+
+/* =========================
+STYLE
+========================= */
+
+const style =
+document.createElement("style");
+
+style.innerHTML = `
+
+#topLibrary{
+
+  position:sticky;
+  top:0;
+  z-index:5000;
+  background:#050505;
+  padding:20px;
+  border-bottom:1px solid #222;
+
+}
+
+.library-section{
+
+  margin-bottom:20px;
+
+}
+
+#likedContainer,
+#playlistContainer{
+
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding-top:10px;
+
+}
+
+.savedItem{
+
+  min-width:160px;
+  background:#111;
+  border:1px solid #222;
+  border-radius:14px;
+  padding:12px;
+  cursor:pointer;
+  transition:.2s;
+
+}
+
+.savedItem:hover{
+
+  border-color:#ff9900;
+
+}
+
+.playlist-top{
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+}
+
+#newPlaylistBtn{
+
+  width:40px;
+  height:40px;
+  border:none;
+  border-radius:50%;
+  background:#ff9900;
+  color:black;
+  font-size:1.3rem;
+  cursor:pointer;
+
+}
+
+.track-actions{
+
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+
+}
+
+.icon-btn{
+
+  width:45px;
+  height:45px;
+  border:none;
+  border-radius:50%;
+  background:#1b1b1b;
+  color:white;
+  font-size:1.2rem;
+  cursor:pointer;
+  transition:.2s;
+
+}
+
+.icon-btn:hover{
+
+  background:#ff9900;
+  color:black;
+
+}
+
+.visualizer{
+
+  display:flex;
+  align-items:flex-end;
+  gap:4px;
+  height:45px;
+  margin-bottom:15px;
+
+}
+
+.bar{
+
+  width:100%;
+  height:10px;
+  background:#ff9900;
+  border-radius:999px;
+
+}
+
+.bar.active{
+
+  animation:bounce 1s infinite ease-in-out;
+
+}
+
+.bar:nth-child(1){
+  animation-delay:0s;
+}
+
+.bar:nth-child(2){
+  animation-delay:.2s;
+}
+
+.bar:nth-child(3){
+  animation-delay:.4s;
+}
+
+.bar:nth-child(4){
+  animation-delay:.6s;
+}
+
+.bar:nth-child(5){
+  animation-delay:.8s;
+}
+
+@keyframes bounce{
+
+  0%,100%{
+    transform:scaleY(.4);
+  }
+
+  50%{
+    transform:scaleY(2);
+  }
+
+}
+
+#playlistOverlay{
+
+  position:fixed;
+  inset:0;
+  background:#000000ee;
+  z-index:999999;
+  display:none;
+  justify-content:center;
+  align-items:center;
+
+}
+
+#playlistScreen{
+
+  width:min(500px,90%);
+  background:#0f0f0f;
+  border:1px solid #222;
+  border-radius:25px;
+  padding:30px;
+  text-align:center;
+  position:relative;
+
+}
+
+#playlistCover{
+
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  border-radius:20px;
+  margin-bottom:20px;
+
+}
+
+#playlistControls{
+
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  margin-top:20px;
+
+}
+
+#playlistControls button{
+
+  width:60px;
+  height:60px;
+  border:none;
+  border-radius:50%;
+  background:#ff9900;
+  color:black;
+  font-size:1.5rem;
+  cursor:pointer;
+
+}
+
+#closeOverlay{
+
+  position:absolute;
+  top:15px;
+  right:15px;
+  width:40px;
+  height:40px;
+  border:none;
+  border-radius:50%;
+  background:#222;
+  color:white;
+  cursor:pointer;
+
+}
+
+`;
+
+document.head.appendChild(style);
 
 /* =========================
 RENDER TRACKS
@@ -644,38 +439,7 @@ RENDER TRACKS
 const tracksContainer =
 document.getElementById("tracks");
 
-tracks.forEach((track,index)=>{
-
-  let aura = "🙂";
-  let auraText = "BASE";
-
-  if(track.rating >= 3){
-
-    aura = "😎";
-    auraText = "SIGMA";
-
-  }
-
-  if(track.rating >= 5){
-
-    aura = "🔥";
-    auraText = "DRIFT";
-
-  }
-
-  if(track.rating >= 7){
-
-    aura = "😈";
-    auraText = "COSMIC";
-
-  }
-
-  if(track.rating >= 9){
-
-    aura = "💀";
-    auraText = "ULTRA AURA";
-
-  }
+tracks.forEach(track=>{
 
   const card =
   document.createElement("div");
@@ -711,22 +475,14 @@ tracks.forEach((track,index)=>{
 
       </audio>
 
-      <div class="rating">
+      <div class="track-actions">
 
-        <span>${aura} ${auraText}</span>
-
-        <span>${track.rating}/10</span>
-
-      </div>
-
-      <div class="controls">
-
-        <button class="like-btn">
-          ❤️ Like
+        <button class="icon-btn like-btn">
+          ❤️
         </button>
 
-        <button class="playlist-btn">
-          📀 Playlist
+        <button class="icon-btn playlist-btn">
+          📀
         </button>
 
       </div>
@@ -741,7 +497,7 @@ tracks.forEach((track,index)=>{
   const bars =
   card.querySelectorAll(".bar");
 
-  /* PAUSE OTHER SONGS */
+  /* AUDIO CONTROL */
 
   audio.addEventListener("play",()=>{
 
@@ -749,6 +505,14 @@ tracks.forEach((track,index)=>{
        currentAudio !== audio){
 
       currentAudio.pause();
+
+      document
+      .querySelectorAll(".bar")
+      .forEach(bar=>{
+
+        bar.classList.remove("active");
+
+      });
 
     }
 
@@ -761,8 +525,6 @@ tracks.forEach((track,index)=>{
     });
 
   });
-
-  /* STOP VISUALIZER */
 
   audio.addEventListener("pause",()=>{
 
@@ -786,10 +548,8 @@ tracks.forEach((track,index)=>{
 
   /* LIKE */
 
-  const likeBtn =
-  card.querySelector(".like-btn");
-
-  likeBtn.addEventListener("click",()=>{
+  card.querySelector(".like-btn")
+  .addEventListener("click",()=>{
 
     if(!likedSongs.includes(track.title)){
 
@@ -800,7 +560,7 @@ tracks.forEach((track,index)=>{
         JSON.stringify(likedSongs)
       );
 
-      renderLikedSongs();
+      renderLiked();
 
     }
 
@@ -808,23 +568,31 @@ tracks.forEach((track,index)=>{
 
   /* PLAYLIST */
 
-  const playlistBtn =
-  card.querySelector(".playlist-btn");
+  card.querySelector(".playlist-btn")
+  .addEventListener("click",()=>{
 
-  playlistBtn.addEventListener("click",()=>{
+    const playlistName =
+    prompt(
+      "Enter playlist name"
+    );
 
-    if(!playlistSongs.includes(track.title)){
+    if(!playlistName) return;
 
-      playlistSongs.push(track.title);
+    if(!playlists[playlistName]){
 
-      localStorage.setItem(
-        "playlistSongs",
-        JSON.stringify(playlistSongs)
-      );
-
-      renderPlaylist();
+      playlists[playlistName] = [];
 
     }
+
+    playlists[playlistName]
+    .push(track.title);
+
+    localStorage.setItem(
+      "playlists",
+      JSON.stringify(playlists)
+    );
+
+    renderPlaylists();
 
   });
 
@@ -833,67 +601,222 @@ tracks.forEach((track,index)=>{
 });
 
 /* =========================
-LIKED SONGS
+RENDER LIKED
 ========================= */
 
-function renderLikedSongs(){
+function renderLiked(){
 
-  const likedContainer =
-  document.getElementById("likedSongs");
+  const container =
+  document.getElementById("likedContainer");
 
-  likedContainer.innerHTML = "";
+  container.innerHTML = "";
 
-  likedSongs.forEach(title=>{
+  likedSongs.forEach(song=>{
 
     const div =
     document.createElement("div");
 
     div.className =
-    "saved-track";
+    "savedItem";
 
-    div.innerText = title;
+    div.innerText = song;
 
-    likedContainer.appendChild(div);
+    container.appendChild(div);
 
   });
 
 }
 
 /* =========================
-PLAYLIST
+RENDER PLAYLISTS
 ========================= */
 
-function renderPlaylist(){
+function renderPlaylists(){
 
-  const playlistContainer =
-  document.getElementById("playlistSongs");
+  const container =
+  document.getElementById("playlistContainer");
 
-  playlistContainer.innerHTML = "";
+  container.innerHTML = "";
 
-  playlistSongs.forEach(title=>{
+  Object.keys(playlists)
+  .forEach(name=>{
 
     const div =
     document.createElement("div");
 
     div.className =
-    "saved-track";
+    "savedItem";
 
-    div.innerText = title;
+    div.innerText =
+    `${name}
+(${playlists[name].length})`;
 
-    playlistContainer.appendChild(div);
+    div.addEventListener("click",()=>{
+
+      openPlaylist(name);
+
+    });
+
+    container.appendChild(div);
 
   });
 
 }
 
 /* =========================
-INITIALIZE
+NEW PLAYLIST
 ========================= */
 
-renderLikedSongs();
-renderPlaylist();
+document.getElementById(
+"newPlaylistBtn"
+).addEventListener("click",()=>{
+
+  const name =
+  prompt("Playlist name");
+
+  if(!name) return;
+
+  if(!playlists[name]){
+
+    playlists[name] = [];
+
+  }
+
+  localStorage.setItem(
+    "playlists",
+    JSON.stringify(playlists)
+  );
+
+  renderPlaylists();
+
+});
+
+/* =========================
+PLAYLIST PLAYER
+========================= */
+
+function openPlaylist(name){
+
+  currentPlaylist =
+  playlists[name]
+  .map(title=>
+    tracks.find(
+      t=>t.title===title
+    )
+  );
+
+  currentPlaylistIndex = 0;
+
+  document.getElementById(
+    "playlistOverlay"
+  ).style.display = "flex";
+
+  playPlaylistSong();
+
+}
+
+function playPlaylistSong(){
+
+  const track =
+  currentPlaylist[currentPlaylistIndex];
+
+  if(!track) return;
+
+  const player =
+  document.getElementById(
+    "playlistPlayer"
+  );
+
+  player.src =
+  track.audio;
+
+  document.getElementById(
+    "playlistCover"
+  ).src =
+  track.cover;
+
+  document.getElementById(
+    "playlistSongTitle"
+  ).innerText =
+  track.title;
+
+  player.play();
+
+}
+
+/* NEXT */
+
+document.getElementById(
+"forwardBtn"
+).addEventListener("click",()=>{
+
+  currentPlaylistIndex++;
+
+  if(currentPlaylistIndex >=
+     currentPlaylist.length){
+
+    currentPlaylistIndex = 0;
+
+  }
+
+  playPlaylistSong();
+
+});
+
+/* BACK */
+
+document.getElementById(
+"backBtn"
+).addEventListener("click",()=>{
+
+  currentPlaylistIndex--;
+
+  if(currentPlaylistIndex < 0){
+
+    currentPlaylistIndex =
+    currentPlaylist.length-1;
+
+  }
+
+  playPlaylistSong();
+
+});
+
+/* SHUFFLE */
+
+document.getElementById(
+"shuffleBtn"
+).addEventListener("click",()=>{
+
+  currentPlaylistIndex =
+  Math.floor(
+    Math.random() *
+    currentPlaylist.length
+  );
+
+  playPlaylistSong();
+
+});
+
+/* CLOSE */
+
+document.getElementById(
+"closeOverlay"
+).addEventListener("click",()=>{
+
+  document.getElementById(
+    "playlistOverlay"
+  ).style.display = "none";
+
+  document.getElementById(
+    "playlistPlayer"
+  ).pause();
+
+});
+
+/* INIT */
+
+renderLiked();
+renderPlaylists();
 
 </script>
-
-</body>
-</html>
