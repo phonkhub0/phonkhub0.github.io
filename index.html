@@ -38,7 +38,7 @@ SCROLLBAR
 }
 
 ::-webkit-scrollbar-track{
-  background:#0f0f0f;
+  background:#111;
 }
 
 ::-webkit-scrollbar-thumb{
@@ -54,84 +54,17 @@ INTRO
   position:fixed;
   inset:0;
   background:black;
-  z-index:999999;
   display:flex;
   justify-content:center;
   align-items:center;
   overflow:hidden;
-}
-
-.intro-particles{
-  position:absolute;
-  width:100%;
-  height:100%;
-}
-
-.particle{
-  position:absolute;
-  width:4px;
-  height:4px;
-  border-radius:50%;
-  background:#ff9900;
-  opacity:.5;
-  animation:float linear infinite;
-}
-
-@keyframes float{
-
-  from{
-    transform:translateY(100vh) scale(0);
-  }
-
-  to{
-    transform:translateY(-10vh) scale(1.5);
-  }
-
-}
-
-.intro-glow{
-  position:absolute;
-  width:700px;
-  height:700px;
-  background:radial-gradient(circle,#ff990033,transparent 70%);
-  animation:pulse 4s infinite;
-}
-
-@keyframes pulse{
-
-  0%{
-    transform:scale(1);
-  }
-
-  50%{
-    transform:scale(1.2);
-  }
-
-  100%{
-    transform:scale(1);
-  }
-
+  z-index:999999;
 }
 
 .intro-content{
   position:relative;
+  z-index:5;
   text-align:center;
-  z-index:10;
-  animation:introFade 1.5s ease;
-}
-
-@keyframes introFade{
-
-  from{
-    opacity:0;
-    transform:translateY(30px);
-  }
-
-  to{
-    opacity:1;
-    transform:translateY(0);
-  }
-
 }
 
 .intro-logo{
@@ -139,7 +72,7 @@ INTRO
   font-weight:900;
   text-shadow:
     0 0 20px #ff9900,
-    0 0 70px #ff9900;
+    0 0 60px #ff9900;
 }
 
 .intro-logo span{
@@ -151,21 +84,8 @@ INTRO
 
 .intro-sub{
   margin-top:20px;
-  color:#999;
+  color:#888;
   letter-spacing:8px;
-  animation:flicker 2s infinite;
-}
-
-@keyframes flicker{
-
-  0%,100%{
-    opacity:1;
-  }
-
-  50%{
-    opacity:.5;
-  }
-
 }
 
 .enter-btn{
@@ -178,13 +98,27 @@ INTRO
   font-weight:900;
   cursor:pointer;
   font-size:1rem;
-  transition:.3s;
-  box-shadow:0 0 40px #ff990066;
 }
 
-.enter-btn:hover{
-  transform:scale(1.08);
-  box-shadow:0 0 80px #ff9900;
+.particle{
+  position:absolute;
+  width:4px;
+  height:4px;
+  background:#ff9900;
+  border-radius:50%;
+  animation:float linear infinite;
+}
+
+@keyframes float{
+
+  from{
+    transform:translateY(100vh);
+  }
+
+  to{
+    transform:translateY(-20vh);
+  }
+
 }
 
 /* =========================
@@ -195,9 +129,9 @@ header{
   position:sticky;
   top:0;
   z-index:1000;
-  backdrop-filter:blur(10px);
   background:#000000cc;
-  border-bottom:1px solid #1d1d1d;
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid #222;
 }
 
 .nav{
@@ -221,77 +155,17 @@ header{
   border-radius:10px;
 }
 
-.top-btn{
-  background:#111;
-  border:1px solid #222;
-  color:white;
-  padding:12px 18px;
-  border-radius:12px;
-}
-
 /* =========================
-HERO
+LAYOUT
 ========================= */
 
-.hero{
-  text-align:center;
-  padding:100px 20px 60px;
-}
-
-.hero h1{
-  font-size:5rem;
-  margin-bottom:20px;
-}
-
-.hero p{
-  max-width:700px;
+.main-layout{
+  display:grid;
+  grid-template-columns:1fr 320px;
+  gap:30px;
+  width:min(1500px,95%);
   margin:auto;
-  color:#999;
-  line-height:1.7;
-}
-
-.hero-meter{
-  margin:50px auto;
-  width:min(700px,90%);
-}
-
-.meter-labels{
-  display:flex;
-  justify-content:space-between;
-  color:#888;
-  margin-bottom:10px;
-}
-
-.meter{
-  background:#111;
-  border:1px solid #222;
-  border-radius:999px;
-  overflow:hidden;
-  height:20px;
-}
-
-.meter-fill{
-  height:100%;
-  width:92%;
-  background:linear-gradient(
-    90deg,
-    #444,
-    #ff9900,
-    #ff0000
-  );
-  animation:meterMove 3s infinite alternate;
-}
-
-@keyframes meterMove{
-
-  from{
-    width:70%;
-  }
-
-  to{
-    width:100%;
-  }
-
+  padding:40px 0;
 }
 
 /* =========================
@@ -299,52 +173,33 @@ TRACKS
 ========================= */
 
 .section-title{
-  text-align:center;
   font-size:3rem;
-  margin-bottom:40px;
+  margin-bottom:35px;
 }
 
 .tracks{
-  width:min(1450px,95%);
-  margin:auto;
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
-  gap:30px;
-  padding-bottom:100px;
+  grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
+  gap:25px;
 }
 
 .card{
   background:#0f0f0f;
   border:1px solid #222;
-  border-radius:25px;
+  border-radius:24px;
   overflow:hidden;
   transition:.3s;
-  position:relative;
 }
 
 .card:hover{
-  transform:translateY(-10px);
+  transform:translateY(-8px);
   border-color:#ff9900;
 }
 
 .legendary{
-  animation:legendaryGlow 2s infinite alternate;
-}
-
-@keyframes legendaryGlow{
-
-  from{
-    box-shadow:
-      0 0 20px #ff990044,
-      0 0 40px #ff000022;
-  }
-
-  to{
-    box-shadow:
-      0 0 50px #ff9900aa,
-      0 0 100px #ff000066;
-  }
-
+  box-shadow:
+    0 0 30px #ff990055,
+    0 0 70px #ff000044;
 }
 
 .card img{
@@ -363,8 +218,36 @@ TRACKS
 
 .card p{
   color:#999;
-  margin-bottom:20px;
+  margin-bottom:18px;
 }
+
+.controls{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+}
+
+.like-btn,
+.playlist-btn{
+  flex:1;
+  border:none;
+  background:#1b1b1b;
+  color:white;
+  padding:12px;
+  border-radius:12px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.like-btn:hover,
+.playlist-btn:hover{
+  background:#ff9900;
+  color:black;
+}
+
+/* =========================
+VISUALIZER
+========================= */
 
 .visualizer{
   display:flex;
@@ -378,37 +261,37 @@ TRACKS
   width:100%;
   background:#ff9900;
   border-radius:999px;
+  transform:scaleY(.3);
+}
+
+.bar.active{
   animation:bounce 1s infinite ease-in-out;
 }
 
 .bar:nth-child(1){
-  height:20px;
+  animation-delay:0s;
 }
 
 .bar:nth-child(2){
-  height:35px;
   animation-delay:.2s;
 }
 
 .bar:nth-child(3){
-  height:25px;
   animation-delay:.4s;
 }
 
 .bar:nth-child(4){
-  height:45px;
   animation-delay:.6s;
 }
 
 .bar:nth-child(5){
-  height:18px;
   animation-delay:.8s;
 }
 
 @keyframes bounce{
 
   0%,100%{
-    transform:scaleY(.5);
+    transform:scaleY(.4);
   }
 
   50%{
@@ -417,49 +300,83 @@ TRACKS
 
 }
 
+/* =========================
+AUDIO
+========================= */
+
 audio{
   width:100%;
-  margin-bottom:18px;
 }
+
+/* =========================
+RATING
+========================= */
 
 .rating{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  margin-top:18px;
   color:#ff9900;
   font-weight:900;
 }
 
-.aura-badge{
-  padding:8px 12px;
-  border-radius:999px;
-  background:#1b1b1b;
-  border:1px solid #2a2a2a;
-}
-
 /* =========================
-FOOTER
+SIDEBAR
 ========================= */
 
-footer{
-  text-align:center;
-  padding:40px 20px;
-  color:#666;
-  border-top:1px solid #1d1d1d;
+.sidebar{
+  position:sticky;
+  top:100px;
+  height:fit-content;
+}
+
+.panel{
+  background:#0f0f0f;
+  border:1px solid #222;
+  border-radius:22px;
+  padding:20px;
+  margin-bottom:25px;
+}
+
+.panel h3{
+  margin-bottom:18px;
+}
+
+.saved-track{
+  background:#181818;
+  border-radius:14px;
+  padding:12px;
+  margin-top:10px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.saved-track:hover{
+  background:#222;
 }
 
 /* =========================
 MOBILE
 ========================= */
 
+@media(max-width:1000px){
+
+  .main-layout{
+    grid-template-columns:1fr;
+  }
+
+  .sidebar{
+    position:relative;
+    top:0;
+  }
+
+}
+
 @media(max-width:700px){
 
   .intro-logo{
     font-size:3.5rem;
-  }
-
-  .hero h1{
-    font-size:2.8rem;
   }
 
   .section-title{
@@ -479,9 +396,7 @@ INTRO
 
 <div id="intro">
 
-  <div class="intro-particles" id="particles"></div>
-
-  <div class="intro-glow"></div>
+  <div id="particles"></div>
 
   <div class="intro-content">
 
@@ -513,92 +428,80 @@ HEADER
       Phonk<span>hub</span>
     </div>
 
-    <button class="top-btn">
-      TOP SIGMAS 🔥
-    </button>
-
   </div>
 
 </header>
 
 <!-- =========================
-HERO
+MAIN
 ========================= -->
 
-<section class="hero">
+<div class="main-layout">
 
-  <h1>UPLOAD THE HARDEST PHONK</h1>
+  <!-- TRACKS -->
 
-  <p>
-    Ranked from weak civilian trollface energy
-    to ULTRA AURA cosmic sigma drift phonk.
-  </p>
+  <div>
 
-  <div class="hero-meter">
+    <h1 class="section-title">
+      TOP AURA TRACKS
+    </h1>
 
-    <div class="meter-labels">
-      <span>🙂 Base Trollface</span>
-      <span>💀 Ultra Aura</span>
-    </div>
-
-    <div class="meter">
-      <div class="meter-fill"></div>
-    </div>
+    <section class="tracks" id="tracks"></section>
 
   </div>
 
-</section>
+  <!-- SIDEBAR -->
 
-<!-- =========================
-TRACKS
-========================= -->
+  <aside class="sidebar">
 
-<h1 class="section-title">
-  TOP AURA TRACKS
-</h1>
+    <div class="panel">
 
-<section class="tracks" id="tracks"></section>
+      <h3>❤️ Liked Songs</h3>
 
-<footer>
-  Phonkhub © 2026 — ONLY REAL AURA SURVIVES
-</footer>
+      <div id="likedSongs"></div>
+
+    </div>
+
+    <div class="panel">
+
+      <h3>📀 Playlist</h3>
+
+      <div id="playlistSongs"></div>
+
+    </div>
+
+  </aside>
+
+</div>
 
 <script>
 
 /* =========================
-INTRO PARTICLES
+INTRO
 ========================= */
 
-const particlesContainer =
+const particles =
 document.getElementById("particles");
 
-for(let i=0;i<90;i++){
+for(let i=0;i<80;i++){
 
-  const particle =
+  const p =
   document.createElement("div");
 
-  particle.classList.add("particle");
+  p.classList.add("particle");
 
-  particle.style.left =
+  p.style.left =
   Math.random()*100 + "vw";
 
-  particle.style.animationDuration =
-  3 + Math.random()*6 + "s";
+  p.style.animationDuration =
+  3 + Math.random()*5 + "s";
 
-  particle.style.opacity =
+  p.style.opacity =
   Math.random();
 
-  particle.style.width =
-  particle.style.height =
-  Math.random()*5 + 2 + "px";
-
-  particlesContainer.appendChild(particle);
+  particles.appendChild(p);
 
 }
-
-/* =========================
-ENTER SITE
-========================= */
 
 function enterSite(){
 
@@ -606,11 +509,9 @@ function enterSite(){
   document.getElementById("intro");
 
   intro.style.transition =
-  "all 1s ease";
+  "1s";
 
   intro.style.opacity = "0";
-
-  intro.style.pointerEvents = "none";
 
   setTimeout(()=>{
 
@@ -622,103 +523,119 @@ function enterSite(){
 
 /* =========================
 TRACK DATA
-PUT YOUR SONGS HERE
 ========================= */
 
 const tracks = [
 
-  {
-    title:"PASSO BEM SOLTO",
-    desc:"3am epstien sigma phonk balkan aura 🥷🏿🍑🗿🍷🇮🇱.",
-    cover:"/IMG_3842.jpeg",
-    audio:"/ATLXS__PASSO_BEM_SOLTO.m4a",
-    rating:6
-  },
-
-  {
-    title:"YARA YARA PHONK",
-    desc:"forbidden phonk me and the boiz 😈🇮🇱🥷🏿🗿🍷.",
-    cover:"/IMG_3041.jpeg",
-    audio:"/YTDown_YouTube_Media_zdgtyoxKb6k_009_128k.mp3",
-    rating:10
-  },
 {
-    title:"MI PAN X YARAYARA",
-    desc:"aura of letter t 🗿🗿🥷🏿🥷🏿🥷🏿🍗🍗🔫🔫🔫.",
-    cover:"/IMG_2220.png",
-    audio:"/ssstik.io_1779248438589.mp3",
-    rating:9
-  },
-  
-  {
-    title:"YA LILI",
-    desc:"sahur boom.",
-    cover:"/IMG_2232.jpeg",
-    audio:"/Yalili yalila song in fast and furious--fast and furious 8--fast and furious 8 yalili yalila song.mp3",
-    rating:8
-  },
-  
-  {
-    title:"MIGUEL PHONk",
-    desc:"nærgerr.",
-    cover:"/IMG_1159.gif",
-    audio:"/Miguel Phonk - 4k video.mp3",
-    rating:5
-  },
-  
-  {
-    title:"VEM VEM",
-    desc:"standard phonk.",
-    cover:"/IMG_3806.jpeg",
-    audio:"/Jmilton - Vem Vem [Official Visualizer] - Jmilton.mp3",
-    rating:7
-  },
-  
-  {
-    title:"Sigon Pex FUNK",
-    desc:"poblox rorn phonk.",
-    cover:"/IMG_2352.jpeg",
-    audio:"/Sigeon Pex - The Musical.mp3",
-    rating:7
-  },
+title:"PASSO BEM SOLTO",
+desc:"3am epstien sigma phonk balkan aura 🥷🏿🍑🗿🍷🇮🇱.",
+cover:"/IMG_3842.jpeg",
+audio:"/ATLXS__PASSO_BEM_SOLTO.m4a",
+rating:6
+},
 
-  {
-    title:"NECK HURT",
-    desc:"bombaclat wallahi.",
-    cover:"/IMG_2356.jpeg",
-    audio:"/Montagem SuperSonic Neck Hurts Version.mp3",
-    rating:7
-  },
-  
-  {
-    title:"TIKI TIKI",
-    desc:"AURA ZUZU PEEPEENUTR.",
-    cover:"/IMG_2238.jpeg",
-    audio:"/TIKI TIKI (Slowed).mp3",
-    rating:9
-  },
-  
-  {
-    title:"POISON SHIT 2.0",
-    desc:"poison puh.",
-    cover:"/IMG_2030.jpeg",
-    audio:"/YTDown_YouTube_MI-PAN-ZUZUZU-SONG-2-MPZZZ-x-Phonk-x-Bar_Media_exyVsRGBqAI_009_128k.mp3",
-    rating:2
-  },
-  
-  {
-    title:"POISON SHIT",
-    desc:"maximum trollface nigger poison.",
-    cover:"/IMG_2026.jpeg",
-    audio:"/YTDown_YouTube_MI-PAN-ZUZUZU-PHONK-X-REGGAETON-BEAT-X-B_Media_75YO4AK0Dlc_008_128k.mp3",
-    rating:1
-  }
+{
+title:"YARA YARA PHONK",
+desc:"forbidden phonk me and the boiz 😈🇮🇱🥷🏿🗿🍷.",
+cover:"/IMG_3041.jpeg",
+audio:"/YTDown_YouTube_Media_zdgtyoxKb6k_009_128k.mp3",
+rating:10
+},
 
-  
-    
+{
+title:"MI PAN X YARAYARA",
+desc:"aura of letter t 🗿🗿🥷🏿🥷🏿🥷🏿🍗🍗🔫🔫🔫.",
+cover:"/IMG_2220.png",
+audio:"/ssstik.io_1779248438589.mp3",
+rating:9
+},
 
+{
+title:"YA LILI",
+desc:"sahur boom.",
+cover:"/IMG_2232.jpeg",
+audio:"/Yalili yalila song in fast and furious--fast and furious 8--fast and furious 8 yalili yalila song.mp3",
+rating:8
+},
+
+{
+title:"MIGUEL PHONk",
+desc:"nærgerr.",
+cover:"/IMG_1159.gif",
+audio:"/Miguel Phonk - 4k video.mp3",
+rating:5
+},
+
+{
+title:"VEM VEM",
+desc:"standard phonk.",
+cover:"/IMG_3806.jpeg",
+audio:"/Jmilton - Vem Vem [Official Visualizer] - Jmilton.mp3",
+rating:7
+},
+
+{
+title:"Sigon Pex FUNK",
+desc:"poblox rorn phonk.",
+cover:"/IMG_2352.jpeg",
+audio:"/Sigeon Pex - The Musical.mp3",
+rating:7
+},
+
+{
+title:"NECK HURT",
+desc:"bombaclat wallahi.",
+cover:"/IMG_2356.jpeg",
+audio:"/Montagem SuperSonic Neck Hurts Version.mp3",
+rating:7
+},
+
+{
+title:"TIKI TIKI",
+desc:"AURA ZUZU PEEPEENUTR.",
+cover:"/IMG_2238.jpeg",
+audio:"/TIKI TIKI (Slowed).mp3",
+rating:9
+},
+
+{
+title:"POISON SHIT 2.0",
+desc:"poison puh.",
+cover:"/IMG_2030.jpeg",
+audio:"/YTDown_YouTube_MI-PAN-ZUZUZU-SONG-2-MPZZZ-x-Phonk-x-Bar_Media_exyVsRGBqAI_009_128k.mp3",
+rating:2
+},
+
+{
+title:"POISON SHIT",
+desc:"maximum trollface poison.",
+cover:"/IMG_2026.jpeg",
+audio:"/YTDown_YouTube_MI-PAN-ZUZUZU-PHONK-X-REGGAETON-BEAT-X-B_Media_75YO4AK0Dlc_008_128k.mp3",
+rating:1
+}
 
 ];
+
+/* =========================
+LOCAL STORAGE
+========================= */
+
+let likedSongs =
+JSON.parse(
+localStorage.getItem("likedSongs")
+) || [];
+
+let playlistSongs =
+JSON.parse(
+localStorage.getItem("playlistSongs")
+) || [];
+
+/* =========================
+CURRENT AUDIO
+========================= */
+
+let currentAudio = null;
 
 /* =========================
 RENDER TRACKS
@@ -727,7 +644,7 @@ RENDER TRACKS
 const tracksContainer =
 document.getElementById("tracks");
 
-tracks.forEach(track=>{
+tracks.forEach((track,index)=>{
 
   let aura = "🙂";
   let auraText = "BASE";
@@ -796,11 +713,21 @@ tracks.forEach(track=>{
 
       <div class="rating">
 
-        <div class="aura-badge">
-          ${aura} ${auraText}
-        </div>
+        <span>${aura} ${auraText}</span>
 
         <span>${track.rating}/10</span>
+
+      </div>
+
+      <div class="controls">
+
+        <button class="like-btn">
+          ❤️ Like
+        </button>
+
+        <button class="playlist-btn">
+          📀 Playlist
+        </button>
 
       </div>
 
@@ -808,9 +735,163 @@ tracks.forEach(track=>{
 
   `;
 
+  const audio =
+  card.querySelector("audio");
+
+  const bars =
+  card.querySelectorAll(".bar");
+
+  /* PAUSE OTHER SONGS */
+
+  audio.addEventListener("play",()=>{
+
+    if(currentAudio &&
+       currentAudio !== audio){
+
+      currentAudio.pause();
+
+    }
+
+    currentAudio = audio;
+
+    bars.forEach(bar=>{
+
+      bar.classList.add("active");
+
+    });
+
+  });
+
+  /* STOP VISUALIZER */
+
+  audio.addEventListener("pause",()=>{
+
+    bars.forEach(bar=>{
+
+      bar.classList.remove("active");
+
+    });
+
+  });
+
+  audio.addEventListener("ended",()=>{
+
+    bars.forEach(bar=>{
+
+      bar.classList.remove("active");
+
+    });
+
+  });
+
+  /* LIKE */
+
+  const likeBtn =
+  card.querySelector(".like-btn");
+
+  likeBtn.addEventListener("click",()=>{
+
+    if(!likedSongs.includes(track.title)){
+
+      likedSongs.push(track.title);
+
+      localStorage.setItem(
+        "likedSongs",
+        JSON.stringify(likedSongs)
+      );
+
+      renderLikedSongs();
+
+    }
+
+  });
+
+  /* PLAYLIST */
+
+  const playlistBtn =
+  card.querySelector(".playlist-btn");
+
+  playlistBtn.addEventListener("click",()=>{
+
+    if(!playlistSongs.includes(track.title)){
+
+      playlistSongs.push(track.title);
+
+      localStorage.setItem(
+        "playlistSongs",
+        JSON.stringify(playlistSongs)
+      );
+
+      renderPlaylist();
+
+    }
+
+  });
+
   tracksContainer.appendChild(card);
 
 });
+
+/* =========================
+LIKED SONGS
+========================= */
+
+function renderLikedSongs(){
+
+  const likedContainer =
+  document.getElementById("likedSongs");
+
+  likedContainer.innerHTML = "";
+
+  likedSongs.forEach(title=>{
+
+    const div =
+    document.createElement("div");
+
+    div.className =
+    "saved-track";
+
+    div.innerText = title;
+
+    likedContainer.appendChild(div);
+
+  });
+
+}
+
+/* =========================
+PLAYLIST
+========================= */
+
+function renderPlaylist(){
+
+  const playlistContainer =
+  document.getElementById("playlistSongs");
+
+  playlistContainer.innerHTML = "";
+
+  playlistSongs.forEach(title=>{
+
+    const div =
+    document.createElement("div");
+
+    div.className =
+    "saved-track";
+
+    div.innerText = title;
+
+    playlistContainer.appendChild(div);
+
+  });
+
+}
+
+/* =========================
+INITIALIZE
+========================= */
+
+renderLikedSongs();
+renderPlaylist();
 
 </script>
 
