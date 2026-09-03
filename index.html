@@ -433,7 +433,9 @@ INTRO
 <div class="intro-sub">
   MAXIMUM AURA DETECTED
 </div>
-<button class="enter-btn" onclick="enterSite()">
+<button
+  class="enter-btn"
+  onclick="enterSite()">
   ENTER THE PHONK
 </button>
   </div>
@@ -457,7 +459,10 @@ MAIN
 <h1 class="section-title">
   TOP AURA TRACKS
 </h1>
-<section class="tracks" id="tracks"></section>
+<section
+  class="tracks"
+  id="tracks">
+</section>
   </div>
   <!-- SIDEBAR -->
   <aside class="sidebar">
@@ -541,14 +546,14 @@ INTRO
 ========================= */
 const particles =
 document.getElementById("particles");
-for(let i=0;i<80;i++){
+for(let i = 0; i < 80; i++){
   const p =
   document.createElement("div");
   p.classList.add("particle");
   p.style.left =
-  Math.random()*100 + "vw";
+  Math.random() * 100 + "vw";
   p.style.animationDuration =
-  3 + Math.random()*5 + "s";
+  3 + Math.random() * 5 + "s";
   p.style.opacity =
   Math.random();
   particles.appendChild(p);
@@ -559,8 +564,17 @@ STARTUP SOUND
 const startupAudio =
 document.getElementById("startupAudio");
 let startupPlayed = false;
+/*
+  Try to start the startup sound
+  during the logo flash.
+  Some browsers will block this because
+  there has not been a user interaction yet.
+*/
 function playStartupSound(){
   if(startupPlayed){
+    return;
+  }
+  if(!startupAudio){
     return;
   }
   startupAudio.currentTime = 0;
@@ -570,39 +584,52 @@ function playStartupSound(){
     })
     .catch(()=>{
       /*
-        Browser autoplay protection may block
-        the sound until the user interacts.
+        Autoplay was blocked.
+        The Enter button will start it instead.
       */
     });
 }
 /*
-  Try to play when the logo flash starts.
+  Try to play the sound when the page loads.
 */
 window.addEventListener("load",()=>{
   setTimeout(()=>{
     playStartupSound();
   },150);
 });
+/*
+  Enter button.
+  The audio is started directly from the
+  user's click, which allows browsers to
+  permit the sound.
+*/
 function enterSite(){
-  /*
-    Clicking the button gives the browser
-    permission to play audio.
-  */
-  if(!startupPlayed){
+  const intro =
+  document.getElementById("intro");
+  if(!startupPlayed &&
+     startupAudio){
     startupAudio.currentTime = 0;
     startupAudio.play()
       .then(()=>{
         startupPlayed = true;
       })
-      .catch(()=>{});
+      .catch(()=>{
+        /*
+          Even if the browser refuses
+          the audio, the intro still closes.
+        */
+      });
   }
-  const intro =
-  document.getElementById("intro");
   intro.style.transition =
-  "1s";
-  intro.style.opacity = "0";
+  "opacity 1s ease";
+  intro.style.opacity =
+  "0";
+  intro.style.pointerEvents =
+  "none";
   setTimeout(()=>{
-    intro.remove();
+    if(intro){
+      intro.remove();
+    }
   },1000);
 }
 /* =========================
@@ -733,6 +760,26 @@ let playlistSongs =
 JSON.parse(
 localStorage.getItem("playlistSongs")
 ) || [];
+/*
+  Remove any saved song names that
+  no longer exist in the current track list.
+*/
+likedSongs =
+likedSongs.filter(title =>
+  tracks.some(track => track.title === title)
+);
+playlistSongs =
+playlistSongs.filter(title =>
+  tracks.some(track => track.title === title)
+);
+localStorage.setItem(
+  "likedSongs",
+  JSON.stringify(likedSongs)
+);
+localStorage.setItem(
+  "playlistSongs",
+  JSON.stringify(playlistSongs)
+);
 /* =========================
 CURRENT AUDIO
 ========================= */
@@ -753,6 +800,12 @@ const playlistState = {
   }
 };
 let activePlaylist = null;
+/*
+  This tells the audio system whether
+  the current play action came from a
+  playlist.
+*/
+let playlistPlayback = false;
 /* =========================
 AUDIO MAP
 ========================= */
@@ -830,7 +883,7 @@ tracks.forEach((track,index)=>{
   const bars =
   card.querySelectorAll(".bar");
   /* =========================
-  PAUSE OTHER SONGS
+  PLAY
   ========================= */
   audio.addEventListener("play",()=>{
     if(currentAudio &&
@@ -839,15 +892,24 @@ tracks.forEach((track,index)=>{
     }
     currentAudio =
     audio;
+    /*
+      If the user clicked the native
+      audio control on the card, it is
+      no longer playlist-controlled.
+    */
+    if(!playlistPlayback){
+      activePlaylist = null;
+    }
     bars.forEach(bar=>{
       bar.classList.add("active");
     });
     highlightPlayingTrack(
       track.title
     );
+    updateAllPlaylistStatuses();
   });
   /* =========================
-  STOP VISUALIZER
+  PAUSE
   ========================= */
   audio.addEventListener("pause",()=>{
     bars.forEach(bar=>{
@@ -862,10 +924,13 @@ tracks.forEach((track,index)=>{
       bar.classList.remove("active");
     });
     /*
-      If this song belongs to the active
-      playlist, automatically continue.
+      Only continue automatically when
+      the song was started by a playlist.
     */
-    if(activePlaylist){
+    if(
+      activePlaylist &&
+      playlistPlayback
+    ){
       const state =
       playlistState[activePlaylist];
       if(
@@ -873,12 +938,17 @@ tracks.forEach((track,index)=>{
         state.queue[state.index] === track.title
       ){
         nextPlaylistTrack(
-          activePlaylist
+          activePlaylist,
+          true
         );
         return;
       }
     }
     currentAudio = null;
+    playlistPlayback = false;
+    activePlaylist = null;
+    highlightPlayingTrack(null);
+    updateAllPlaylistStatuses();
   });
   /* =========================
   LIKE / FAVORITE
@@ -893,7 +963,7 @@ tracks.forEach((track,index)=>{
     if(likedSongs.includes(track.title)){
       likedSongs =
       likedSongs.filter(
-        title=>title !== track.title
+        title => title !== track.title
       );
     }else{
       likedSongs.push(
@@ -923,7 +993,7 @@ tracks.forEach((track,index)=>{
     if(playlistSongs.includes(track.title)){
       playlistSongs =
       playlistSongs.filter(
-        title=>title !== track.title
+        title => title !== track.title
       );
     }else{
       playlistSongs.push(
@@ -945,7 +1015,10 @@ tracks.forEach((track,index)=>{
 /* =========================
 BUTTON STATES
 ========================= */
-function updateLikeButton(button,title){
+function updateLikeButton(
+  button,
+  title
+){
   if(likedSongs.includes(title)){
     button.classList.add("active");
     button.innerText =
@@ -956,7 +1029,10 @@ function updateLikeButton(button,title){
       "❤️ Like";
   }
 }
-function updatePlaylistButton(button,title){
+function updatePlaylistButton(
+  button,
+  title
+){
   if(playlistSongs.includes(title)){
     button.classList.add("active");
     button.innerText =
@@ -1017,7 +1093,7 @@ function renderLikedSongs(){
       event.stopPropagation();
       likedSongs =
       likedSongs.filter(
-        song=>song !== title
+        song => song !== title
       );
       localStorage.setItem(
         "likedSongs",
@@ -1025,6 +1101,13 @@ function renderLikedSongs(){
       );
       renderLikedSongs();
       updateAllLikeButtons();
+      /*
+        If the removed song is currently
+        in the favorites queue, rebuild it.
+      */
+      rebuildPlaylistState(
+        "favorites"
+      );
     };
     row.appendChild(div);
     row.appendChild(removeBtn);
@@ -1084,7 +1167,7 @@ function renderPlaylist(){
       event.stopPropagation();
       playlistSongs =
       playlistSongs.filter(
-        song=>song !== title
+        song => song !== title
       );
       localStorage.setItem(
         "playlistSongs",
@@ -1092,6 +1175,9 @@ function renderPlaylist(){
       );
       renderPlaylist();
       updateAllPlaylistButtons();
+      rebuildPlaylistState(
+        "playlist"
+      );
     };
     row.appendChild(div);
     row.appendChild(removeBtn);
@@ -1167,6 +1253,40 @@ function shuffleArray(array){
   return shuffled;
 }
 /* =========================
+REBUILD PLAYLIST STATE
+========================= */
+function rebuildPlaylistState(type){
+  const state =
+  playlistState[type];
+  const songs =
+  getPlaylistSongs(type);
+  if(!songs.length){
+    state.queue = [];
+    state.index = 0;
+    updatePlaylistStatus(type);
+    return;
+  }
+  const currentTitle =
+  state.queue[state.index];
+  if(state.shuffle){
+    state.queue =
+    shuffleArray(songs);
+  }else{
+    state.queue =
+    songs;
+  }
+  if(currentTitle &&
+     state.queue.includes(currentTitle)){
+    state.index =
+    state.queue.indexOf(
+      currentTitle
+    );
+  }else{
+    state.index = 0;
+  }
+  updatePlaylistStatus(type);
+}
+/* =========================
 PLAY WHOLE PLAYLIST
 ========================= */
 function playPlaylist(type){
@@ -1178,15 +1298,20 @@ function playPlaylist(type){
   }
   const state =
   playlistState[type];
-  state.queue =
-  state.shuffle
-  ? shuffleArray(songs)
-  : songs;
+  if(state.shuffle){
+    state.queue =
+    shuffleArray(songs);
+  }else{
+    state.queue =
+    songs;
+  }
   state.index = 0;
   activePlaylist =
   type;
+  playlistPlayback = true;
   playTitle(
-    state.queue[state.index]
+    state.queue[state.index],
+    true
   );
   updatePlaylistStatus(type);
 }
@@ -1204,14 +1329,10 @@ function playPlaylistTrack(
   }
   const state =
   playlistState[type];
-  /*
-    If shuffle is active, create a shuffled
-    queue but make the selected song first.
-  */
   if(state.shuffle){
     const remaining =
     songs.filter(
-      song=>song !== title
+      song => song !== title
     );
     state.queue = [
       title,
@@ -1230,15 +1351,20 @@ function playPlaylistTrack(
   }
   activePlaylist =
   type;
+  playlistPlayback = true;
   playTitle(
-    state.queue[state.index]
+    state.queue[state.index],
+    true
   );
   updatePlaylistStatus(type);
 }
 /* =========================
 PLAY AUDIO BY TITLE
 ========================= */
-function playTitle(title){
+function playTitle(
+  title,
+  fromPlaylist = false
+){
   const audio =
   audioMap.get(title);
   if(!audio){
@@ -1250,16 +1376,28 @@ function playTitle(title){
   }
   currentAudio =
   audio;
+  playlistPlayback =
+  fromPlaylist;
   audio.currentTime = 0;
-  audio.play().catch(()=>{});
+  audio.play()
+    .catch(error=>{
+      console.log(
+        "Audio could not play:",
+        error
+      );
+    });
   highlightPlayingTrack(
     title
   );
+  updateAllPlaylistStatuses();
 }
 /* =========================
 NEXT
 ========================= */
-function nextPlaylistTrack(type){
+function nextPlaylistTrack(
+  type,
+  automatic = false
+){
   const state =
   playlistState[type];
   const songs =
@@ -1268,13 +1406,14 @@ function nextPlaylistTrack(type){
     return;
   }
   /*
-    Rebuild the queue if necessary.
+    Rebuild the queue if it is empty
+    or the saved playlist changed.
   */
   const queueStillValid =
-  state.queue.length === songs.length &&
-  state.queue.every(
-    song=>songs.includes(song)
-  );
+    state.queue.length === songs.length &&
+    state.queue.every(
+      song => songs.includes(song)
+    );
   if(!queueStillValid){
     state.queue =
     state.shuffle
@@ -1292,15 +1431,19 @@ function nextPlaylistTrack(type){
   }
   activePlaylist =
   type;
+  playlistPlayback = true;
   playTitle(
-    state.queue[state.index]
+    state.queue[state.index],
+    true
   );
   updatePlaylistStatus(type);
 }
 /* =========================
 PREVIOUS
 ========================= */
-function previousPlaylistTrack(type){
+function previousPlaylistTrack(
+  type
+){
   const state =
   playlistState[type];
   const songs =
@@ -1323,8 +1466,10 @@ function previousPlaylistTrack(type){
   }
   activePlaylist =
   type;
+  playlistPlayback = true;
   playTitle(
-    state.queue[state.index]
+    state.queue[state.index],
+    true
   );
   updatePlaylistStatus(type);
 }
@@ -1376,6 +1521,9 @@ function toggleShuffle(type){
     }else{
       state.index = 0;
     }
+  }else{
+    state.queue = [];
+    state.index = 0;
   }
   updatePlaylistStatus(type);
 }
@@ -1397,8 +1545,7 @@ function updatePlaylistStatus(type){
   const state =
   playlistState[type];
   if(!songs.length){
-    element.innerText =
-    "";
+    element.innerText = "";
     return;
   }
   const shuffleText =
@@ -1412,16 +1559,27 @@ function updatePlaylistStatus(type){
     state.queue[state.index]
   ){
     currentText =
-    " • " +
-    state.queue[state.index];
+      " • " +
+      state.queue[state.index];
   }
   element.innerText =
-  songs.length +
-  " song" +
-  (songs.length === 1 ? "" : "s") +
-  " • " +
-  shuffleText +
-  currentText;
+    songs.length +
+    " song" +
+    (songs.length === 1 ? "" : "s") +
+    " • " +
+    shuffleText +
+    currentText;
+}
+/* =========================
+UPDATE BOTH STATUSES
+========================= */
+function updateAllPlaylistStatuses(){
+  updatePlaylistStatus(
+    "favorites"
+  );
+  updatePlaylistStatus(
+    "playlist"
+  );
 }
 /* =========================
 HIGHLIGHT PLAYING SONG
@@ -1434,6 +1592,9 @@ function highlightPlayingTrack(title){
       "playing-track"
     );
   });
+  if(!title){
+    return;
+  }
   document
   .querySelectorAll(".saved-track")
   .forEach(element=>{
@@ -1451,6 +1612,8 @@ INITIALIZE
 ========================= */
 renderLikedSongs();
 renderPlaylist();
+updateAllLikeButtons();
+updateAllPlaylistButtons();
 </script>
 </body>
 </html>
