@@ -1,55 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Phonkhub</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-
 <style>
-
 /* =========================
 RESET
 ========================= */
-
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
 }
-
 body{
   background:#050505;
   color:white;
   font-family:'Inter',sans-serif;
   overflow-x:hidden;
 }
-
 /* =========================
 SCROLLBAR
 ========================= */
-
 ::-webkit-scrollbar{
   width:10px;
 }
-
 ::-webkit-scrollbar-track{
   background:#111;
 }
-
 ::-webkit-scrollbar-thumb{
   background:#ff9900;
   border-radius:999px;
 }
-
 /* =========================
 INTRO
 ========================= */
-
 #intro{
   position:fixed;
   inset:0;
@@ -60,34 +47,44 @@ INTRO
   overflow:hidden;
   z-index:999999;
 }
-
 .intro-content{
   position:relative;
   z-index:5;
   text-align:center;
 }
-
 .intro-logo{
   font-size:6rem;
   font-weight:900;
   text-shadow:
     0 0 20px #ff9900,
     0 0 60px #ff9900;
+  animation:logoFlash 1.4s ease-in-out infinite alternate;
 }
-
 .intro-logo span{
+  display:inline-block;
   background:#ff9900;
   color:black;
   padding:6px 15px;
   border-radius:12px;
+  box-shadow:
+    0 0 20px #ff9900,
+    0 0 50px #ff990066;
 }
-
+@keyframes logoFlash{
+  from{
+    transform:scale(1);
+    filter:brightness(1);
+  }
+  to{
+    transform:scale(1.05);
+    filter:brightness(1.4);
+  }
+}
 .intro-sub{
   margin-top:20px;
   color:#888;
   letter-spacing:8px;
 }
-
 .enter-btn{
   margin-top:35px;
   border:none;
@@ -98,8 +95,13 @@ INTRO
   font-weight:900;
   cursor:pointer;
   font-size:1rem;
+  transition:.2s;
 }
-
+.enter-btn:hover{
+  transform:scale(1.05);
+  box-shadow:
+    0 0 25px #ff9900;
+}
 .particle{
   position:absolute;
   width:4px;
@@ -108,23 +110,17 @@ INTRO
   border-radius:50%;
   animation:float linear infinite;
 }
-
 @keyframes float{
-
   from{
     transform:translateY(100vh);
   }
-
   to{
     transform:translateY(-20vh);
   }
-
 }
-
 /* =========================
 HEADER
 ========================= */
-
 header{
   position:sticky;
   top:0;
@@ -133,7 +129,6 @@ header{
   backdrop-filter:blur(10px);
   border-bottom:1px solid #222;
 }
-
 .nav{
   max-width:1400px;
   margin:auto;
@@ -142,23 +137,21 @@ header{
   align-items:center;
   padding:20px;
 }
-
 .logo{
   font-size:2.5rem;
   font-weight:900;
 }
-
 .logo span{
+  display:inline-block;
   background:#ff9900;
   color:black;
   padding:4px 10px;
   border-radius:10px;
+  box-shadow:0 0 15px #ff990055;
 }
-
 /* =========================
 LAYOUT
 ========================= */
-
 .main-layout{
   display:grid;
   grid-template-columns:1fr 320px;
@@ -167,22 +160,18 @@ LAYOUT
   margin:auto;
   padding:40px 0;
 }
-
 /* =========================
 TRACKS
 ========================= */
-
 .section-title{
   font-size:3rem;
   margin-bottom:35px;
 }
-
 .tracks{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
   gap:25px;
 }
-
 .card{
   background:#0f0f0f;
   border:1px solid #222;
@@ -190,43 +179,35 @@ TRACKS
   overflow:hidden;
   transition:.3s;
 }
-
 .card:hover{
   transform:translateY(-8px);
   border-color:#ff9900;
 }
-
 .legendary{
   box-shadow:
     0 0 30px #ff990055,
     0 0 70px #ff000044;
 }
-
 .card img{
   width:100%;
   height:260px;
   object-fit:cover;
 }
-
 .card-content{
   padding:22px;
 }
-
 .card h2{
   margin-bottom:10px;
 }
-
 .card p{
   color:#999;
   margin-bottom:18px;
 }
-
 .controls{
   display:flex;
   gap:10px;
   margin-top:15px;
 }
-
 .like-btn,
 .playlist-btn{
   flex:1;
@@ -238,17 +219,19 @@ TRACKS
   cursor:pointer;
   transition:.2s;
 }
-
 .like-btn:hover,
 .playlist-btn:hover{
   background:#ff9900;
   color:black;
 }
-
+.like-btn.active,
+.playlist-btn.active{
+  background:#ff9900;
+  color:black;
+}
 /* =========================
 VISUALIZER
 ========================= */
-
 .visualizer{
   display:flex;
   align-items:flex-end;
@@ -256,62 +239,47 @@ VISUALIZER
   height:45px;
   margin-bottom:15px;
 }
-
 .bar{
   width:100%;
   background:#ff9900;
   border-radius:999px;
   transform:scaleY(.3);
 }
-
 .bar.active{
   animation:bounce 1s infinite ease-in-out;
 }
-
 .bar:nth-child(1){
   animation-delay:0s;
 }
-
 .bar:nth-child(2){
   animation-delay:.2s;
 }
-
 .bar:nth-child(3){
   animation-delay:.4s;
 }
-
 .bar:nth-child(4){
   animation-delay:.6s;
 }
-
 .bar:nth-child(5){
   animation-delay:.8s;
 }
-
 @keyframes bounce{
-
   0%,100%{
     transform:scaleY(.4);
   }
-
   50%{
     transform:scaleY(1.2);
   }
-
 }
-
 /* =========================
 AUDIO
 ========================= */
-
 audio{
   width:100%;
 }
-
 /* =========================
 RATING
 ========================= */
-
 .rating{
   display:flex;
   justify-content:space-between;
@@ -320,17 +288,14 @@ RATING
   color:#ff9900;
   font-weight:900;
 }
-
 /* =========================
 SIDEBAR
 ========================= */
-
 .sidebar{
   position:sticky;
   top:100px;
   height:fit-content;
 }
-
 .panel{
   background:#0f0f0f;
   border:1px solid #222;
@@ -338,195 +303,312 @@ SIDEBAR
   padding:20px;
   margin-bottom:25px;
 }
-
 .panel h3{
   margin-bottom:18px;
 }
-
+/* =========================
+PLAYLIST CONTROLS
+========================= */
+.playlist-controls{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:7px;
+  margin-bottom:12px;
+}
+.playlist-control{
+  border:none;
+  background:#1b1b1b;
+  color:white;
+  padding:10px 5px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:900;
+  transition:.2s;
+}
+.playlist-control:hover{
+  background:#ff9900;
+  color:black;
+}
+.playlist-control.active{
+  background:#ff9900;
+  color:black;
+}
+/* =========================
+SAVED TRACKS
+========================= */
+.saved-track-row{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:10px;
+}
 .saved-track{
+  flex:1;
   background:#181818;
   border-radius:14px;
   padding:12px;
-  margin-top:10px;
   cursor:pointer;
   transition:.2s;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
-
 .saved-track:hover{
   background:#222;
 }
-
+.saved-track.playing-track{
+  background:#ff9900;
+  color:black;
+  font-weight:900;
+}
+.remove-track{
+  border:none;
+  background:#181818;
+  color:#999;
+  width:38px;
+  height:38px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:900;
+  flex-shrink:0;
+  transition:.2s;
+}
+.remove-track:hover{
+  background:#ff9900;
+  color:black;
+}
+.playlist-empty{
+  color:#777;
+  padding:10px 0;
+  font-size:.9rem;
+}
+.playlist-status{
+  color:#777;
+  font-size:.75rem;
+  margin-top:12px;
+  line-height:1.4;
+}
 /* =========================
 MOBILE
 ========================= */
-
 @media(max-width:1000px){
-
   .main-layout{
     grid-template-columns:1fr;
   }
-
   .sidebar{
     position:relative;
     top:0;
   }
-
 }
-
 @media(max-width:700px){
-
   .intro-logo{
     font-size:3.5rem;
   }
-
+  .intro-sub{
+    font-size:.7rem;
+    letter-spacing:4px;
+  }
   .section-title{
     font-size:2rem;
   }
-
+  .tracks{
+    grid-template-columns:1fr;
+  }
 }
-
 </style>
 </head>
-
 <body>
-
+<!-- =========================
+STARTUP AUDIO
+========================= -->
 <!-- =========================
 INTRO
 ========================= -->
-
 <div id="intro">
-
   <div id="particles"></div>
-
   <div class="intro-content">
-
-    <div class="intro-logo">
-      Phonk<span>hub</span>
-    </div>
-
-    <div class="intro-sub">
-      MAXIMUM AURA DETECTED
-    </div>
-
-    <button class="enter-btn" onclick="enterSite()">
-      ENTER THE PHONK
-    </button>
-
-  </div>
-
+<div class="intro-logo">
+  Phonk<span>hub</span>
 </div>
-
+<div class="intro-sub">
+  MAXIMUM AURA DETECTED
+</div>
+<button class="enter-btn" onclick="enterSite()">
+  ENTER THE PHONK
+</button>
+  </div>
+</div>
 <!-- =========================
 HEADER
 ========================= -->
-
 <header>
-
   <div class="nav">
-
-    <div class="logo">
-      Phonk<span>hub</span>
-    </div>
-
+<div class="logo">
+  Phonk<span>hub</span>
+</div>
   </div>
-
 </header>
-
 <!-- =========================
 MAIN
 ========================= -->
-
 <div class="main-layout">
-
   <!-- TRACKS -->
-
   <div>
-
-    <h1 class="section-title">
-      TOP AURA TRACKS
-    </h1>
-
-    <section class="tracks" id="tracks"></section>
-
+<h1 class="section-title">
+  TOP AURA TRACKS
+</h1>
+<section class="tracks" id="tracks"></section>
   </div>
-
   <!-- SIDEBAR -->
-
   <aside class="sidebar">
-
-    <div class="panel">
-
-      <h3>❤️ Liked Songs</h3>
-
-      <div id="likedSongs"></div>
-
-    </div>
-
-    <div class="panel">
-
-      <h3>📀 Playlist</h3>
-
-      <div id="playlistSongs"></div>
-
-    </div>
-
-  </aside>
-
+<!-- FAVORITES -->
+<div class="panel">
+  <h3>❤️ Favorites</h3>
+  <div class="playlist-controls">
+    <button
+      class="playlist-control"
+      onclick="playPlaylist('favorites')"
+      title="Play Favorites">
+      ▶
+    </button>
+    <button
+      class="playlist-control"
+      onclick="previousPlaylistTrack('favorites')"
+      title="Previous Song">
+      ⏮
+    </button>
+    <button
+      class="playlist-control"
+      onclick="nextPlaylistTrack('favorites')"
+      title="Next Song">
+      ⏭
+    </button>
+    <button
+      id="favoritesShuffle"
+      class="playlist-control"
+      onclick="toggleShuffle('favorites')"
+      title="Shuffle Favorites">
+      🔀
+    </button>
+  </div>
+  <div id="likedSongs"></div>
+  <div
+    id="favoritesStatus"
+    class="playlist-status">
+  </div>
 </div>
-
+<!-- NORMAL PLAYLIST -->
+<div class="panel">
+  <h3>📀 Playlist</h3>
+  <div class="playlist-controls">
+    <button
+      class="playlist-control"
+      onclick="playPlaylist('playlist')"
+      title="Play Playlist">
+      ▶
+    </button>
+    <button
+      class="playlist-control"
+      onclick="previousPlaylistTrack('playlist')"
+      title="Previous Song">
+      ⏮
+    </button>
+    <button
+      class="playlist-control"
+      onclick="nextPlaylistTrack('playlist')"
+      title="Next Song">
+      ⏭
+    </button>
+    <button
+      id="playlistShuffle"
+      class="playlist-control"
+      onclick="toggleShuffle('playlist')"
+      title="Shuffle Playlist">
+      🔀
+    </button>
+  </div>
+  <div id="playlistSongs"></div>
+  <div
+    id="playlistStatus"
+    class="playlist-status">
+  </div>
+</div>
+  </aside>
+</div>
 <script>
-
 /* =========================
 INTRO
 ========================= */
-
 const particles =
 document.getElementById("particles");
-
 for(let i=0;i<80;i++){
-
   const p =
   document.createElement("div");
-
   p.classList.add("particle");
-
   p.style.left =
   Math.random()*100 + "vw";
-
   p.style.animationDuration =
   3 + Math.random()*5 + "s";
-
   p.style.opacity =
   Math.random();
-
   particles.appendChild(p);
-
 }
-
+/* =========================
+STARTUP SOUND
+========================= */
+const startupAudio =
+document.getElementById("startupAudio");
+let startupPlayed = false;
+function playStartupSound(){
+  if(startupPlayed){
+    return;
+  }
+  startupAudio.currentTime = 0;
+  startupAudio.play()
+    .then(()=>{
+      startupPlayed = true;
+    })
+    .catch(()=>{
+      /*
+        Browser autoplay protection may block
+        the sound until the user interacts.
+      */
+    });
+}
+/*
+  Try to play when the logo flash starts.
+*/
+window.addEventListener("load",()=>{
+  setTimeout(()=>{
+    playStartupSound();
+  },150);
+});
 function enterSite(){
-
+  /*
+    Clicking the button gives the browser
+    permission to play audio.
+  */
+  if(!startupPlayed){
+    startupAudio.currentTime = 0;
+    startupAudio.play()
+      .then(()=>{
+        startupPlayed = true;
+      })
+      .catch(()=>{});
+  }
   const intro =
   document.getElementById("intro");
-
   intro.style.transition =
   "1s";
-
   intro.style.opacity = "0";
-
   setTimeout(()=>{
-
     intro.remove();
-
   },1000);
-
 }
-
 /* =========================
 TRACK DATA
 ========================= */
-
 const tracks = [
-
 {
 title:"PASSO BEM SOLTO",
 desc:"3am epstien sigma phonk balkan aura 🥷🏿🍑🗿🍷🇮🇱.",
@@ -534,7 +616,6 @@ cover:"/IMG_3842.jpeg",
 audio:"/ATLXS__PASSO_BEM_SOLTO.m4a",
 rating:6
 },
-
 {
 title:"YARA YARA PHONK",
 desc:"forbidden phonk me and the boiz 😈🇮🇱🥷🏿🗿🍷.",
@@ -542,7 +623,6 @@ cover:"/IMG_3041.jpeg",
 audio:"/YTDown_YouTube_Media_zdgtyoxKb6k_009_128k.mp3",
 rating:10
 },
-
 {
 title:"JUICE WRLD - N✡GGR OFFICIAL MUSIC VIDEO",
 desc:"TOMMY HILFIGGER.",
@@ -550,23 +630,20 @@ cover:"/",
 audio:"/Juice WRLD - Bandit, but its really racist (remake).mov",
 rating:10
 },
-  
-  {
+{
 title:"EFN ISLAND FUNK",
 desc:"🇮🇱🇮🇱🇮🇱🚬🚬🚬🚬🚬😈😈😈😈😈🗿🗿🗿🗿🗿🏝️🏝️🏝️🏝️🕍🕍🕍🕍.",
 cover:"/IMG_4108.jpeg",
 audio:"/Epstein Island funk.mp3",
 rating:9.67
 },
-  
-  {
+{
 title:"DR DONUT DIGGER FUNK",
 desc:"bro did NOT say digger.",
 cover:"/IMG_4109.gif",
 audio:"/My Movie 1.mp3",
 rating:9.67
 },
-  
 {
 title:"MI PAN X YARAYARA",
 desc:"aura of letter t 🗿🗿🥷🏿🥷🏿🥷🏿🍗🍗🔫🔫🔫.",
@@ -574,7 +651,6 @@ cover:"/IMG_2220.png",
 audio:"/ssstik.io_1779248438589.mp3",
 rating:9
 },
-
 {
 title:"YA LILI",
 desc:"sahur boom.",
@@ -582,7 +658,6 @@ cover:"/IMG_2232.jpeg",
 audio:"/Yalili yalila song in fast and furious--fast and furious 8--fast and furious 8 yalili yalila song.mp3",
 rating:8
 },
-
 {
 title:"MIGUEL PHONk",
 desc:"nærgerr.",
@@ -590,7 +665,6 @@ cover:"/IMG_1159.gif",
 audio:"/Miguel Phonk - 4k video.mp3",
 rating:5
 },
-
 {
 title:"VEM VEM",
 desc:"standard phonk.",
@@ -598,7 +672,6 @@ cover:"/IMG_3806.jpeg",
 audio:"/Jmilton - Vem Vem [Official Visualizer] - Jmilton.mp3",
 rating:7
 },
-
 {
 title:"indian walmart fart",
 desc:"भारतीय वॉलमार्ट में पादना.",
@@ -606,7 +679,6 @@ cover:"/IMG_2645.png",
 audio:"/YTDown_YouTube_Indian-Walmart-Fart_Media_CCuPekLAAAw_001_1080p.mp3",
 rating:6
 },
-
 {
 title:"kanye east",
 desc:"fortnite balls.",
@@ -614,7 +686,6 @@ cover:"/IMG_2644.jpeg",
 audio:"/YTDown_YouTube_Kanye-East-Fortnite-Balls-Freestyle-Offi_Media_q7jCrhETMEM_001_720p.mp3",
 rating:4
 },
-  
 {
 title:"Sigon Pex FUNK",
 desc:"poblox rorn phonk.",
@@ -622,7 +693,6 @@ cover:"/IMG_2352.jpeg",
 audio:"/Sigeon Pex - The Musical.mp3",
 rating:7
 },
-
 {
 title:"NECK HURT",
 desc:"bombaclat wallahi.",
@@ -630,7 +700,6 @@ cover:"/IMG_2356.jpeg",
 audio:"/Montagem SuperSonic Neck Hurts Version.mp3",
 rating:7
 },
-
 {
 title:"TIKI TIKI",
 desc:"AURA ZUZU PEEPEENUTR.",
@@ -638,7 +707,6 @@ cover:"/IMG_2238.jpeg",
 audio:"/TIKI TIKI (Slowed).mp3",
 rating:9
 },
-
 {
 title:"POISON SHIT 2.0",
 desc:"poison puh.",
@@ -646,7 +714,6 @@ cover:"/IMG_2030.jpeg",
 audio:"/YTDown_YouTube_MI-PAN-ZUZUZU-SONG-2-MPZZZ-x-Phonk-x-Bar_Media_exyVsRGBqAI_009_128k.mp3",
 rating:2
 },
-
 {
 title:"POISON SHIT",
 desc:"maximum trollface poison.",
@@ -654,286 +721,736 @@ cover:"/IMG_2026.jpeg",
 audio:"/YTDown_YouTube_MI-PAN-ZUZUZU-PHONK-X-REGGAETON-BEAT-X-B_Media_75YO4AK0Dlc_008_128k.mp3",
 rating:1
 }
-
 ];
-
 /* =========================
 LOCAL STORAGE
 ========================= */
-
 let likedSongs =
 JSON.parse(
 localStorage.getItem("likedSongs")
 ) || [];
-
 let playlistSongs =
 JSON.parse(
 localStorage.getItem("playlistSongs")
 ) || [];
-
 /* =========================
 CURRENT AUDIO
 ========================= */
-
 let currentAudio = null;
-
+/* =========================
+PLAYLIST STATE
+========================= */
+const playlistState = {
+  playlist:{
+    queue:[],
+    index:0,
+    shuffle:false
+  },
+  favorites:{
+    queue:[],
+    index:0,
+    shuffle:false
+  }
+};
+let activePlaylist = null;
+/* =========================
+AUDIO MAP
+========================= */
+const audioMap =
+new Map();
 /* =========================
 RENDER TRACKS
 ========================= */
-
 const tracksContainer =
 document.getElementById("tracks");
-
 tracks.forEach((track,index)=>{
-
   let aura = "🙂";
   let auraText = "BASE";
-
   if(track.rating >= 3){
-
     aura = "😎";
     auraText = "SIGMA";
-
   }
-
   if(track.rating >= 5){
-
     aura = "🔥";
     auraText = "DRIFT";
-
   }
-
   if(track.rating >= 7){
-
     aura = "😈";
     auraText = "COSMIC";
-
   }
-
   if(track.rating >= 9){
-
     aura = "💀";
     auraText = "ULTRA AURA";
-
   }
-
   const card =
   document.createElement("div");
-
   card.className =
   track.rating >= 9
   ? "card legendary"
   : "card";
-
+  card.dataset.trackTitle =
+  track.title;
   card.innerHTML = `
-
-    <img src="${track.cover}">
-
+    <img
+      src="${track.cover}"
+      alt="${track.title}">
     <div class="card-content">
-
       <h2>${track.title}</h2>
-
       <p>${track.desc}</p>
-
       <div class="visualizer">
-
         <div class="bar"></div>
         <div class="bar"></div>
         <div class="bar"></div>
         <div class="bar"></div>
         <div class="bar"></div>
-
       </div>
-
       <audio controls>
-
         <source src="${track.audio}">
-
       </audio>
-
       <div class="rating">
-
         <span>${aura} ${auraText}</span>
-
         <span>${track.rating}/10</span>
-
       </div>
-
       <div class="controls">
-
         <button class="like-btn">
           ❤️ Like
         </button>
-
         <button class="playlist-btn">
           📀 Playlist
         </button>
-
       </div>
-
     </div>
-
   `;
-
   const audio =
   card.querySelector("audio");
-
+  audioMap.set(
+    track.title,
+    audio
+  );
   const bars =
   card.querySelectorAll(".bar");
-
-  /* PAUSE OTHER SONGS */
-
+  /* =========================
+  PAUSE OTHER SONGS
+  ========================= */
   audio.addEventListener("play",()=>{
-
     if(currentAudio &&
        currentAudio !== audio){
-
       currentAudio.pause();
-
     }
-
-    currentAudio = audio;
-
+    currentAudio =
+    audio;
     bars.forEach(bar=>{
-
       bar.classList.add("active");
-
     });
-
+    highlightPlayingTrack(
+      track.title
+    );
   });
-
-  /* STOP VISUALIZER */
-
+  /* =========================
+  STOP VISUALIZER
+  ========================= */
   audio.addEventListener("pause",()=>{
-
     bars.forEach(bar=>{
-
       bar.classList.remove("active");
-
     });
-
   });
-
+  /* =========================
+  SONG ENDED
+  ========================= */
   audio.addEventListener("ended",()=>{
-
     bars.forEach(bar=>{
-
       bar.classList.remove("active");
-
     });
-
+    /*
+      If this song belongs to the active
+      playlist, automatically continue.
+    */
+    if(activePlaylist){
+      const state =
+      playlistState[activePlaylist];
+      if(
+        state.queue.length &&
+        state.queue[state.index] === track.title
+      ){
+        nextPlaylistTrack(
+          activePlaylist
+        );
+        return;
+      }
+    }
+    currentAudio = null;
   });
-
-  /* LIKE */
-
+  /* =========================
+  LIKE / FAVORITE
+  ========================= */
   const likeBtn =
   card.querySelector(".like-btn");
-
+  updateLikeButton(
+    likeBtn,
+    track.title
+  );
   likeBtn.addEventListener("click",()=>{
-
-    if(!likedSongs.includes(track.title)){
-
-      likedSongs.push(track.title);
-
+    if(likedSongs.includes(track.title)){
+      likedSongs =
+      likedSongs.filter(
+        title=>title !== track.title
+      );
+    }else{
+      likedSongs.push(
+        track.title
+      );
+    }
+    localStorage.setItem(
+      "likedSongs",
+      JSON.stringify(likedSongs)
+    );
+    updateLikeButton(
+      likeBtn,
+      track.title
+    );
+    renderLikedSongs();
+  });
+  /* =========================
+  NORMAL PLAYLIST
+  ========================= */
+  const playlistBtn =
+  card.querySelector(".playlist-btn");
+  updatePlaylistButton(
+    playlistBtn,
+    track.title
+  );
+  playlistBtn.addEventListener("click",()=>{
+    if(playlistSongs.includes(track.title)){
+      playlistSongs =
+      playlistSongs.filter(
+        title=>title !== track.title
+      );
+    }else{
+      playlistSongs.push(
+        track.title
+      );
+    }
+    localStorage.setItem(
+      "playlistSongs",
+      JSON.stringify(playlistSongs)
+    );
+    updatePlaylistButton(
+      playlistBtn,
+      track.title
+    );
+    renderPlaylist();
+  });
+  tracksContainer.appendChild(card);
+});
+/* =========================
+BUTTON STATES
+========================= */
+function updateLikeButton(button,title){
+  if(likedSongs.includes(title)){
+    button.classList.add("active");
+    button.innerText =
+      "❤️ Favorited";
+  }else{
+    button.classList.remove("active");
+    button.innerText =
+      "❤️ Like";
+  }
+}
+function updatePlaylistButton(button,title){
+  if(playlistSongs.includes(title)){
+    button.classList.add("active");
+    button.innerText =
+      "📀 Added";
+  }else{
+    button.classList.remove("active");
+    button.innerText =
+      "📀 Playlist";
+  }
+}
+/* =========================
+LIKED SONGS
+========================= */
+function renderLikedSongs(){
+  const likedContainer =
+  document.getElementById(
+    "likedSongs"
+  );
+  likedContainer.innerHTML = "";
+  if(likedSongs.length === 0){
+    likedContainer.innerHTML = `
+      <div class="playlist-empty">
+        No favorite songs yet.
+      </div>
+    `;
+    updatePlaylistStatus(
+      "favorites"
+    );
+    return;
+  }
+  likedSongs.forEach(title=>{
+    const row =
+    document.createElement("div");
+    row.className =
+    "saved-track-row";
+    const div =
+    document.createElement("div");
+    div.className =
+    "saved-track";
+    div.innerText =
+    title;
+    div.onclick = ()=>{
+      playPlaylistTrack(
+        "favorites",
+        title
+      );
+    };
+    const removeBtn =
+    document.createElement("button");
+    removeBtn.className =
+    "remove-track";
+    removeBtn.innerText =
+    "×";
+    removeBtn.title =
+    "Remove from Favorites";
+    removeBtn.onclick =
+    (event)=>{
+      event.stopPropagation();
+      likedSongs =
+      likedSongs.filter(
+        song=>song !== title
+      );
       localStorage.setItem(
         "likedSongs",
         JSON.stringify(likedSongs)
       );
-
       renderLikedSongs();
-
-    }
-
+      updateAllLikeButtons();
+    };
+    row.appendChild(div);
+    row.appendChild(removeBtn);
+    likedContainer.appendChild(row);
   });
-
-  /* PLAYLIST */
-
-  const playlistBtn =
-  card.querySelector(".playlist-btn");
-
-  playlistBtn.addEventListener("click",()=>{
-
-    if(!playlistSongs.includes(track.title)){
-
-      playlistSongs.push(track.title);
-
+  updatePlaylistStatus(
+    "favorites"
+  );
+}
+/* =========================
+NORMAL PLAYLIST
+========================= */
+function renderPlaylist(){
+  const playlistContainer =
+  document.getElementById(
+    "playlistSongs"
+  );
+  playlistContainer.innerHTML = "";
+  if(playlistSongs.length === 0){
+    playlistContainer.innerHTML = `
+      <div class="playlist-empty">
+        No songs in your playlist yet.
+      </div>
+    `;
+    updatePlaylistStatus(
+      "playlist"
+    );
+    return;
+  }
+  playlistSongs.forEach(title=>{
+    const row =
+    document.createElement("div");
+    row.className =
+    "saved-track-row";
+    const div =
+    document.createElement("div");
+    div.className =
+    "saved-track";
+    div.innerText =
+    title;
+    div.onclick = ()=>{
+      playPlaylistTrack(
+        "playlist",
+        title
+      );
+    };
+    const removeBtn =
+    document.createElement("button");
+    removeBtn.className =
+    "remove-track";
+    removeBtn.innerText =
+    "×";
+    removeBtn.title =
+    "Remove from Playlist";
+    removeBtn.onclick =
+    (event)=>{
+      event.stopPropagation();
+      playlistSongs =
+      playlistSongs.filter(
+        song=>song !== title
+      );
       localStorage.setItem(
         "playlistSongs",
         JSON.stringify(playlistSongs)
       );
-
       renderPlaylist();
-
+      updateAllPlaylistButtons();
+    };
+    row.appendChild(div);
+    row.appendChild(removeBtn);
+    playlistContainer.appendChild(row);
+  });
+  updatePlaylistStatus(
+    "playlist"
+  );
+}
+/* =========================
+UPDATE CARD BUTTONS
+========================= */
+function updateAllLikeButtons(){
+  document
+  .querySelectorAll(".like-btn")
+  .forEach(button=>{
+    const card =
+    button.closest(".card");
+    if(!card){
+      return;
     }
-
+    updateLikeButton(
+      button,
+      card.dataset.trackTitle
+    );
   });
-
-  tracksContainer.appendChild(card);
-
-});
-
-/* =========================
-LIKED SONGS
-========================= */
-
-function renderLikedSongs(){
-
-  const likedContainer =
-  document.getElementById("likedSongs");
-
-  likedContainer.innerHTML = "";
-
-  likedSongs.forEach(title=>{
-
-    const div =
-    document.createElement("div");
-
-    div.className =
-    "saved-track";
-
-    div.innerText = title;
-
-    likedContainer.appendChild(div);
-
-  });
-
 }
-
-/* =========================
-PLAYLIST
-========================= */
-
-function renderPlaylist(){
-
-  const playlistContainer =
-  document.getElementById("playlistSongs");
-
-  playlistContainer.innerHTML = "";
-
-  playlistSongs.forEach(title=>{
-
-    const div =
-    document.createElement("div");
-
-    div.className =
-    "saved-track";
-
-    div.innerText = title;
-
-    playlistContainer.appendChild(div);
-
+function updateAllPlaylistButtons(){
+  document
+  .querySelectorAll(".playlist-btn")
+  .forEach(button=>{
+    const card =
+    button.closest(".card");
+    if(!card){
+      return;
+    }
+    updatePlaylistButton(
+      button,
+      card.dataset.trackTitle
+    );
   });
-
 }
-
+/* =========================
+PLAYLIST ENGINE
+========================= */
+function getPlaylistSongs(type){
+  if(type === "favorites"){
+    return [...likedSongs];
+  }
+  return [...playlistSongs];
+}
+function shuffleArray(array){
+  const shuffled =
+  [...array];
+  for(
+    let i = shuffled.length - 1;
+    i > 0;
+    i--
+  ){
+    const j =
+    Math.floor(
+      Math.random() * (i + 1)
+    );
+    [
+      shuffled[i],
+      shuffled[j]
+    ] =
+    [
+      shuffled[j],
+      shuffled[i]
+    ];
+  }
+  return shuffled;
+}
+/* =========================
+PLAY WHOLE PLAYLIST
+========================= */
+function playPlaylist(type){
+  const songs =
+  getPlaylistSongs(type);
+  if(songs.length === 0){
+    updatePlaylistStatus(type);
+    return;
+  }
+  const state =
+  playlistState[type];
+  state.queue =
+  state.shuffle
+  ? shuffleArray(songs)
+  : songs;
+  state.index = 0;
+  activePlaylist =
+  type;
+  playTitle(
+    state.queue[state.index]
+  );
+  updatePlaylistStatus(type);
+}
+/* =========================
+PLAY SPECIFIC PLAYLIST SONG
+========================= */
+function playPlaylistTrack(
+  type,
+  title
+){
+  const songs =
+  getPlaylistSongs(type);
+  if(songs.length === 0){
+    return;
+  }
+  const state =
+  playlistState[type];
+  /*
+    If shuffle is active, create a shuffled
+    queue but make the selected song first.
+  */
+  if(state.shuffle){
+    const remaining =
+    songs.filter(
+      song=>song !== title
+    );
+    state.queue = [
+      title,
+      ...shuffleArray(remaining)
+    ];
+    state.index = 0;
+  }else{
+    state.queue =
+    songs;
+    const index =
+    state.queue.indexOf(title);
+    state.index =
+    index === -1
+    ? 0
+    : index;
+  }
+  activePlaylist =
+  type;
+  playTitle(
+    state.queue[state.index]
+  );
+  updatePlaylistStatus(type);
+}
+/* =========================
+PLAY AUDIO BY TITLE
+========================= */
+function playTitle(title){
+  const audio =
+  audioMap.get(title);
+  if(!audio){
+    return;
+  }
+  if(currentAudio &&
+     currentAudio !== audio){
+    currentAudio.pause();
+  }
+  currentAudio =
+  audio;
+  audio.currentTime = 0;
+  audio.play().catch(()=>{});
+  highlightPlayingTrack(
+    title
+  );
+}
+/* =========================
+NEXT
+========================= */
+function nextPlaylistTrack(type){
+  const state =
+  playlistState[type];
+  const songs =
+  getPlaylistSongs(type);
+  if(songs.length === 0){
+    return;
+  }
+  /*
+    Rebuild the queue if necessary.
+  */
+  const queueStillValid =
+  state.queue.length === songs.length &&
+  state.queue.every(
+    song=>songs.includes(song)
+  );
+  if(!queueStillValid){
+    state.queue =
+    state.shuffle
+    ? shuffleArray(songs)
+    : songs;
+    state.index = 0;
+  }else{
+    state.index++;
+  }
+  if(
+    state.index >=
+    state.queue.length
+  ){
+    state.index = 0;
+  }
+  activePlaylist =
+  type;
+  playTitle(
+    state.queue[state.index]
+  );
+  updatePlaylistStatus(type);
+}
+/* =========================
+PREVIOUS
+========================= */
+function previousPlaylistTrack(type){
+  const state =
+  playlistState[type];
+  const songs =
+  getPlaylistSongs(type);
+  if(songs.length === 0){
+    return;
+  }
+  if(!state.queue.length){
+    state.queue =
+    state.shuffle
+    ? shuffleArray(songs)
+    : songs;
+    state.index = 0;
+  }else{
+    state.index--;
+    if(state.index < 0){
+      state.index =
+      state.queue.length - 1;
+    }
+  }
+  activePlaylist =
+  type;
+  playTitle(
+    state.queue[state.index]
+  );
+  updatePlaylistStatus(type);
+}
+/* =========================
+SHUFFLE
+========================= */
+function toggleShuffle(type){
+  const state =
+  playlistState[type];
+  state.shuffle =
+  !state.shuffle;
+  const button =
+  document.getElementById(
+    type === "favorites"
+    ? "favoritesShuffle"
+    : "playlistShuffle"
+  );
+  if(button){
+    button.classList.toggle(
+      "active",
+      state.shuffle
+    );
+  }
+  const songs =
+  getPlaylistSongs(type);
+  if(songs.length){
+    const currentTitle =
+    state.queue[state.index];
+    if(state.shuffle){
+      state.queue =
+      shuffleArray(songs);
+    }else{
+      state.queue =
+      songs;
+    }
+    /*
+      Keep the currently playing song
+      in the same position when possible.
+    */
+    if(currentTitle){
+      const newIndex =
+      state.queue.indexOf(
+        currentTitle
+      );
+      if(newIndex !== -1){
+        state.index =
+        newIndex;
+      }
+    }else{
+      state.index = 0;
+    }
+  }
+  updatePlaylistStatus(type);
+}
+/* =========================
+PLAYLIST STATUS
+========================= */
+function updatePlaylistStatus(type){
+  const element =
+  document.getElementById(
+    type === "favorites"
+    ? "favoritesStatus"
+    : "playlistStatus"
+  );
+  if(!element){
+    return;
+  }
+  const songs =
+  getPlaylistSongs(type);
+  const state =
+  playlistState[type];
+  if(!songs.length){
+    element.innerText =
+    "";
+    return;
+  }
+  const shuffleText =
+  state.shuffle
+  ? "Shuffle ON"
+  : "Shuffle OFF";
+  let currentText =
+  "";
+  if(
+    state.queue.length &&
+    state.queue[state.index]
+  ){
+    currentText =
+    " • " +
+    state.queue[state.index];
+  }
+  element.innerText =
+  songs.length +
+  " song" +
+  (songs.length === 1 ? "" : "s") +
+  " • " +
+  shuffleText +
+  currentText;
+}
+/* =========================
+HIGHLIGHT PLAYING SONG
+========================= */
+function highlightPlayingTrack(title){
+  document
+  .querySelectorAll(".saved-track")
+  .forEach(element=>{
+    element.classList.remove(
+      "playing-track"
+    );
+  });
+  document
+  .querySelectorAll(".saved-track")
+  .forEach(element=>{
+    if(
+      element.innerText === title
+    ){
+      element.classList.add(
+        "playing-track"
+      );
+    }
+  });
+}
 /* =========================
 INITIALIZE
 ========================= */
-
 renderLikedSongs();
 renderPlaylist();
-
 </script>
-
 </body>
 </html>
