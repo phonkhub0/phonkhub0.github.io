@@ -286,24 +286,120 @@ function enterSite(){
      treated as a video automatically.
 ========================= */
 const tracks = [
-  { title:"PASSO BEM SOLTO", desc:"3am balkan aura 🥷🏿🗿🍷.", cover:"/IMG_3842.jpeg", audio:"/ATLXS__PASSO_BEM_SOLTO.m4a", rating:6, isNew:false },
-  { title:"YARA YARA PHONK", desc:"forbidden phonk me and the boiz 😈🗿🍷.", cover:"/IMG_3041.jpeg", audio:"/YTDown_YouTube_Media_zdgtyoxKb6k_009_128k.mp3", rating:10, isNew:false },
-  { title:"DR DONUT FUNK", desc:"donut funk.", cover:"/IMG_4109.gif", audio:"/My Movie 1.mp3", rating:9.67, isNew:false },
-  { title:"MI PAN X YARAYARA", desc:"aura of letter t 🗿🥷🏿.", cover:"/IMG_2220.png", audio:"/ssstik.io_1779248438589.mp3", rating:9, isNew:false },
-  { title:"YA LILI", desc:"sahur boom.", cover:"/IMG_2232.jpeg", audio:"/Yalili yalila song in fast and furious--fast and furious 8--fast and furious 8 yalili yalila song.mp3", rating:8, isNew:false },
-  { title:"MIGUEL PHONk", desc:"miguel.", cover:"/IMG_1159.gif", audio:"/Miguel Phonk - 4k video.mp3", rating:5, isNew:false },
-  { title:"VEM VEM", desc:"standard phonk.", cover:"/IMG_3806.jpeg", audio:"/Jmilton - Vem Vem [Official Visualizer] - Jmilton.mp3", rating:7, isNew:true },
-  { title:"indian walmart fart", desc:"भारतीय वॉलमार्ट में पादना.", cover:"/IMG_2645.png", audio:"/YTDown_YouTube_Indian-Walmart-Fart_Media_CCuPekLAAAw_001_1080p.mp3", rating:6, isNew:false },
-  { title:"kanye east", desc:"fortnite balls.", cover:"/IMG_2644.jpeg", audio:"/YTDown_YouTube_Kanye-East-Fortnite-Balls-Freestyle-Offi_Media_q7jCrhETMEM_001_720p.mp3", rating:4, isNew:false },
-  { title:"Sigon Pex FUNK", desc:"poblox rorn phonk.", cover:"/IMG_2352.jpeg", audio:"/Sigeon Pex - The Musical.mp3", rating:7, isNew:true },
-  { title:"NECK HURT", desc:"bombaclat wallahi.", cover:"/IMG_2356.jpeg", audio:"/Montagem SuperSonic Neck Hurts Version.mp3", rating:7, isNew:true },
-  { title:"TIKI TIKI", desc:"AURA ZUZU PEEPEENUTR.", cover:"/IMG_2238.jpeg", audio:"/TIKI TIKI (Slowed).mp3", rating:9, isNew:false },
-  { title:"POISON SHIT 2.0", desc:"poison puh.", cover:"/IMG_2030.jpeg", audio:"/YTDown_YouTube_MI-PAN-ZUZUZU-SONG-2-MPZZZ-x-Phonk-x-Bar_Media_exyVsRGBqAI_009_128k.mp3", rating:2, isNew:false },
-  { title:"POISON SHIT", desc:"maximum trollface poison.", cover:"/IMG_2026.jpeg", audio:"/YTDown_YouTube_MI-PAN-ZUZUZU-PHONK-X-REGGAETON-BEAT-X-B_Media_75YO4AK0Dlc_008_128k.mp3", rating:1, isNew:false }
+  {
+title:"PASSO BEM SOLTO",
+desc:"3am epstien sigma phonk balkan aura 🥷🏿🍑🗿🍷🇮🇱.",
+cover:"/IMG_3842.jpeg",
+audio:"/ATLXS__PASSO_BEM_SOLTO.m4a",
+rating:6
+},
+{
+title:"YARA YARA PHONK",
+desc:"forbidden phonk me and the boiz 😈🇮🇱🥷🏿🗿🍷.",
+cover:"/IMG_3041.jpeg",
+audio:"/YTDown_YouTube_Media_zdgtyoxKb6k_009_128k.mp3",
+rating:10
+},
+{
+title:"JUICE WRLD - N✡GGR OFFICIAL MUSIC VIDEO",
+desc:"TOMMY HILFIGGER.",
+cover:"/",
+video:"/Juice WRLD - Bandit, but its really racist (remake).mov",
+rating:10
+},
+{
+title:"EFN ISLAND FUNK",
+desc:"🇮🇱🇮🇱🇮🇱🚬🚬🚬🚬🚬😈😈😈😈😈🗿🗿🗿🗿🗿🏝️🏝️🏝️🏝️🕍🕍🕍🕍.",
+cover:"/IMG_4108.jpeg",
+audio:"/Epstein Island funk.mp3",
+rating:9.67
+},
+{
+title:"DR DONUT DIGGER FUNK",
+desc:"bro did NOT say digger.",
+cover:"/IMG_4109.gif",
+audio:"/My Movie 1.mp3",
+rating:9.67
+},
+{
+title:"MI PAN X YARAYARA",
+desc:"aura of letter t 🗿🗿🥷🏿🥷🏿🥷🏿🍗🍗🔫🔫🔫.",
+cover:"/IMG_2220.png",
+audio:"/ssstik.io_1779248438589.mp3",
+rating:9
+},
+{
+title:"YA LILI",
+desc:"sahur boom.",
+cover:"/IMG_2232.jpeg",
+audio:"/Yalili yalila song in fast and furious--fast and furious 8--fast and furious 8 yalili yalila song.mp3",
+rating:8
+},
+{
+title:"MIGUEL PHONk",
+desc:"nærgerr.",
+cover:"/IMG_1159.gif",
+audio:"/Miguel Phonk - 4k video.mp3",
+rating:5
+},
+{
+title:"VEM VEM",
+desc:"standard phonk.",
+cover:"/IMG_3806.jpeg",
+audio:"/Jmilton - Vem Vem [Official Visualizer] - Jmilton.mp3",
+rating:7
+},
+{
+title:"indian walmart fart",
+desc:"भारतीय वॉलमार्ट में पादना.",
+cover:"/IMG_2645.png",
+audio:"/YTDown_YouTube_Indian-Walmart-Fart_Media_CCuPekLAAAw_001_1080p.mp3",
+rating:6
+},
+{
+title:"kanye east",
+desc:"fortnite balls.",
+cover:"/IMG_2644.jpeg",
+audio:"/YTDown_YouTube_Kanye-East-Fortnite-Balls-Freestyle-Offi_Media_q7jCrhETMEM_001_720p.mp3",
+rating:4
+},
+{
+title:"Sigon Pex FUNK",
+desc:"poblox rorn phonk.",
+cover:"/IMG_2352.jpeg",
+audio:"/Sigeon Pex - The Musical.mp3",
+rating:7
+},
+{
+title:"NECK HURT",
+desc:"bombaclat wallahi.",
+cover:"/IMG_2356.jpeg",
+audio:"/Montagem SuperSonic Neck Hurts Version.mp3",
+rating:7
+},
+{
+title:"TIKI TIKI",
+desc:"AURA ZUZU PEEPEENUTR.",
+cover:"/IMG_2238.jpeg",
+audio:"/TIKI TIKI (Slowed).mp3",
+rating:9
+},
+{
+title:"POISON SHIT 2.0",
+desc:"poison puh.",
+cover:"/IMG_2030.jpeg",
+audio:"/YTDown_YouTube_MI-PAN-ZUZUZU-SONG-2-MPZZZ-x-Phonk-x-Bar_Media_exyVsRGBqAI_009_128k.mp3",
+rating:2
+},
+{
+title:"POISON SHIT",
+desc:"maximum trollface poison.",
+cover:"/IMG_2026.jpeg",
+audio:"/YTDown_YouTube_MI-PAN-ZUZUZU-PHONK-X-REGGAETON-BEAT-X-B_Media_75YO4AK0Dlc_008_128k.mp3",
+rating:1
+}
 
-  /* Music video example:
-  { title:"Some Music Video", desc:"...", cover:"/poster.jpg", video:"/clip.mp4", rating:8, isNew:true },
-  */
+
 ];
 
 /* =========================
